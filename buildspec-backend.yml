@@ -7,7 +7,7 @@ phases:
       nodejs: 20
   pre_build:
     commands:
-      - echo Installing source dependencies...
+      - echo Installing source dependencies..
       - npm -v
       - npm install -g yarn
   build:
