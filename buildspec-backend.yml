@@ -7,26 +7,32 @@ phases:
       nodejs: 20
   pre_build:
     commands:
+      - set -e
       - echo Installing source dependencies...
       - npm -v
       - npm install -g yarn
       - yarn -v
       - yarn install
+      - npm run list-apps-dirs
+      - echo "Contents of apps.txt:"
+      - cat apps.txt
   build:
     commands:
-      - echo Build started on `date`
-      - npm run build-${SERVICE_NAME}-serverless
-      - yarn --cwd dist/apps/${SERVICE_NAME} install
-      - docker build --no-cache --build-arg SERVICE_NAME=${SERVICE_NAME}  -t ${PROJECT-NAME}-${ENVIRONMENT-NAME}-${SERVICE_NAME} -f BackendDockerfile .
+      - set -e
+      - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+      - for SERVICE_NAME in $(cat apps.txt); 
+          do echo "Building $SERVICE_NAME..." ; 
+          npm run build-${SERVICE_NAME} ;
+          yarn --cwd dist/apps/${SERVICE_NAME} install ;
+          docker build --no-cache --build-arg SERVICE_NAME=${SERVICE_NAME} -t ${ENVIRONMENT-NAME}-${SERVICE_NAME} -f BackendDockerfile . ;
+          echo "Pushing image for $SERVICE_NAME to ECR..." ;
+          docker tag ${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ;
+          docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ;
+          aws lambda update-function-code --function-name ${ENVIRONMENT-NAME}-${SERVICE_NAME} --image-uri ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ;
+        done
   post_build:
     commands:
-      - echo Build completed on `date`
-      - echo Pushing image to ECR...
-      - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
-      - docker tag ${PROJECT-NAME}-${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${PROJECT-NAME}-${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest
-      - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest
-      - echo Image pushed to ECR
-      - aws lambda update-function-code --function-name ${PROJECT-NAME}-${ENVIRONMENT-NAME}-${SERVICE_NAME} --image-uri ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest
+      - set -e
 cache:
   paths:
     - node_modules

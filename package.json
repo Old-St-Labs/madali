@@ -23,7 +23,8 @@
         "build-logging-service-serverless": "nx build logging-service --skip-nx-cache",
         "build-file-service-serverless": "nx build file-service --skip-nx-cache --configuration=lambda-serverless",
         "build-email-service-serverless": "nx build email-service --skip-nx-cache --configuration=lambda-serverless",
-        "storybook": "export NODE_OPTIONS=--openssl-legacy-provider && nx storybook ui"
+        "storybook": "export NODE_OPTIONS=--openssl-legacy-provider && nx storybook ui",
+        "list-apps-dirs": "find apps -mindepth 1 -maxdepth 1 -type d ! -name 'web-app' | awk -F/ '{print $NF}' > apps.txt"    
     },
     "private": true,
     "dependencies": {
