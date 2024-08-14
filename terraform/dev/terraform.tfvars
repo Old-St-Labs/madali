@@ -1,0 +1,6 @@
+environment= "dev"
+project = "madali"
+region = "eu-west-2"
+repository-name = "madali"
+domain-name = "kopona.io"
+lambda_role_name = "madali-dev-lambda-role"

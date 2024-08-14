@@ -1,0 +1,41 @@
+service: resources
+useDotenv: true
+frameworkVersion: "^3.36.0"
+package:
+  excludeDevDependencies: true
+  patterns:
+  - 'node_modules/**'
+  - '!node_modules/.prisma/client/libquery_engine-*'
+  - 'node_modules/.prisma/client/libquery_engine-rhel-*'
+  - '!node_modules/prisma/libquery_engine-*'
+  - '!node_modules/@prisma/engines/**'
+  
+  
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-common-excludes
+  - serverless-plugin-optimize 
+  - serverless-dotenv-plugin
+  
+
+custom:
+  serverless-offline:
+    httpPort: 8000
+
+  
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  runtime: nodejs20.x
+  region: eu-west-1
+  deploymentMethod: direct
+  profile: old-st-internal
+
+resources:
+  - ${file(serverless-files/resources/dynamodb-table.yml)}          
+  - ${file(serverless-files/resources/s3-buckets.yml)}            
+  - ${file(serverless-files/resources/sqs.yml)}              
+  - ${file(serverless-files/resources/cognito.yml)}          
+  - ${file(serverless-files/resources/ecr-ecs.yml)}                    
+  
