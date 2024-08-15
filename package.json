@@ -24,7 +24,7 @@
         "build-file-service": "nx build file-service --skip-nx-cache --configuration=lambda-serverless",
         "build-email-service": "nx build email-service --skip-nx-cache --configuration=lambda-serverless",
         "storybook": "export NODE_OPTIONS=--openssl-legacy-provider && nx storybook ui",
-        "list-apps-dirs": "find apps -mindepth 1 -maxdepth 1 -type d ! -name 'web-app' | awk -F/ '{print $NF}' > apps.txt"    
+        "list-apps-dirs": "find apps -mindepth 1 -maxdepth 1 -type d ! -name 'web-app' | awk -F/ '{print $NF}' > apps.txt"
 
     },
     "private": true,
@@ -69,6 +69,7 @@
         "jwks-rsa": "^3.0.1",
         "next": "13.3.0",
         "nodemailer": "^6.9.4",
+        "openai": "^4.55.7",
         "passport": "^0.6.0",
         "passport-jwt": "^4.0.1",
         "react": "18.2.0",
