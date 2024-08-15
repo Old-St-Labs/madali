@@ -1,7 +1,7 @@
 /* TODO: clean input styling*/
 
 .input-wrapper .input-field {
-    @apply border border-N600 rounded px-3 py-2 relative flex items-center h-12 gap-3.5 text-N600;
+    @apply border border-GR300 rounded px-3 py-2 relative flex items-center h-12 gap-3.5 text-N600;
 }
 .input-wrapper {
     @apply relative;
@@ -23,6 +23,9 @@
     @apply text-lg leading-6 text-N800 w-full border-none outline-none;
 }
 
+.input-label--top {
+    @apply font-semibold text-base text-T1 mb-2;
+}
 
 /* Label and Placeholder  */
 .input-wrapper .input ::placeholder {
@@ -68,7 +71,7 @@
     @apply text-primary500;
 }
 .input-wrapper .input-field:has(> .input:focus-within){
-    @apply border-primary500 transition-all duration-300;
+    @apply border-BLGR400 transition-all duration-300;
 }
 .input-wrapper.input-error .input:focus-within {
     @apply text-primary500;

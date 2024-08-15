@@ -10,7 +10,7 @@ const Story: Meta<typeof ButtonComponent> = {
         variant: {
             control: {
                 type: 'radio',
-                options: ['primary', 'secondary', 'tertiary', 'error']
+                options: ['primary', 'secondary', 'tertiary', 'text', 'error']
             }
         }
     }
@@ -35,6 +35,11 @@ export const Tertiary = Template.bind({});
 Tertiary.args = {
     label: 'Button',
     variant: 'tertiary',
+};
+export const Text = Template.bind({});
+Text.args = {
+    label: 'Button',
+    variant: 'text',
 };
 export const Error = Template.bind({});
 Error.args = {

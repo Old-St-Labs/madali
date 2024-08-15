@@ -3,7 +3,10 @@ export const EventEmitter = {
     events: {
         OrgUpdated: 'onOrgUpdated',
         UserUpdate: 'onUserUpdated',
-        FolderUpdated: 'onFolderUpdated'
+        FolderUpdated: 'onFolderUpdated',
+        ExportReferralForm: 'onExportReferralForm',
+        CancelExportReferralForm: 'onCancelExportReferralForm',
+        UpdateReportQuestion: 'onUpdateReportQuestion',
     },
     subscribe(event: string, callback) {
         if (!this.events[event]) this.events[event] = [];

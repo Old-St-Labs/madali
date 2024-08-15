@@ -1,5 +1,4 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Close } from '../../icons';
 import Backdrop from '../backdrop/backdrop';
 import styles from './drawer.module.scss';
 
@@ -23,14 +22,14 @@ export function Drawer({ children, onToggle, isVisible, isFullWidth }: IDrawer) 
                         animate={{ width: isFullWidth ? '100%' : 672 }}
                         exit={{ width: 0 }}>
                         <div className='h-full relative'>
-                            <motion.div
+                            {/* <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 onClick={onToggle}
                                 className={styles['drawer__close']}>
                                 <Close size={24} />
-                            </motion.div>
+                            </motion.div> */}
                             {children}
                         </div>
                     </motion.aside>

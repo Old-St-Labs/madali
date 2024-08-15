@@ -1,0 +1,9 @@
+.container {
+    @apply flex justify-between items-center bg-BG2 border border-BLGR100 rounded-md p-6 w-full;
+    box-shadow: 0px 4px 8px 0px #474e4a29;
+    &__details {
+        &-separator {
+            @apply bg-BLGR100 h-1 w-1 rounded-full;
+        }
+    }
+}

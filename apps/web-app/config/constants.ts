@@ -21,3 +21,9 @@ export const API_CONFIG = {
     // 'AUTH': process.env['NX_API_AUTH'],
     // 'USERS': process.env['NX_API_USERS']
 };
+
+export const REPORT_VIEW = {
+    REFERRAL_FORM: 'REFERRAL_FORM',
+    REFERRAL_NOTES: 'REFERRAL_NOTES',
+    GENERATED_REPORT: 'GENERATED_REPORT',
+};

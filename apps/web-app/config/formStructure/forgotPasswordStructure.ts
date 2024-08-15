@@ -7,7 +7,7 @@ export const schema = yup.object().shape({
 
 export const structure: FormSection[] = [{
     fields: [[
-        { label: 'Email Address', placeholder: 'user@email', name: 'email' }
+        { label: 'Email Address', placeholder: 'user@email', name: 'email'}
     ]]
 }];
 
