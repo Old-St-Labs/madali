@@ -1,0 +1,15 @@
+.container {
+    @apply mt-10 w-full;
+
+    &__input-group {
+        @apply mt-2 flex items-center gap-4;
+    }
+
+    &__input-input {
+        @apply w-full bg-BG2;
+    }
+
+    &__input-button {
+        @apply w-32 m-0;
+    }
+}

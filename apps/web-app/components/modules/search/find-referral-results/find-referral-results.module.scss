@@ -1,0 +1,19 @@
+.container {
+    @apply mt-14 border border-B300 rounded-tl-md rounded-tr-md overflow-hidden;
+
+    &__header {
+        @apply flex h-[9.5rem];
+
+        &-left {
+            @apply flex flex-col bg-BG3 p-6 justify-between w-3/5 2xl:w-2/5;
+        }
+
+        &-right {
+            @apply flex bg-B50 py-6 px-10 w-full;
+        }
+    }
+
+    &__list {
+        @apply relative flex flex-col gap-5 max-h-[19rem] overflow-y-auto scrollbar-hide bg-GR50 border border-BLGR100 border-t-0 rounded-bl-md rounded-br-md py-10 px-6;
+    }
+}

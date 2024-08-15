@@ -1,0 +1,7 @@
+.container {
+    @apply h-20 bg-BLGR400 flex justify-between items-center px-20 text-T4;
+
+    &__items {
+        @apply flex gap-8 items-center;
+    }
+}

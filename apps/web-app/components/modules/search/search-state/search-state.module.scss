@@ -1,0 +1,11 @@
+.container {
+    @apply mt-8 p-7 flex gap-4 items-center bg-BG3 border border-B200 rounded;
+
+    &.-error {
+        @apply bg-error50 border-error200;
+    }
+
+    &.-not-found {
+        @apply bg-warning50 border-warning400;
+    }
+}

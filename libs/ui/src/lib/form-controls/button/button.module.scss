@@ -2,16 +2,16 @@ button.app-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.75rem;
+    // padding: 0.75rem 1.2rem;
     transition: all 0.5s;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     cursor: pointer;
-    height: 2.5rem;
-    font-size: 0.875rem;
-    font-weight: 700;
+    // height: 3rem;
+    font-size: 1rem;
+    font-weight: 500 !important;
     letter-spacing: 0.02rem;
     text-transform: capitalize;
 
@@ -38,49 +38,66 @@ button.app-button {
         cursor: default;
     }
 
+    &.btn-sm {
+        padding: 0.5rem 0.7rem;
+        height: auto;
+        font-size: 0.8rem;
+    }
+
+    &.btn-md {
+        padding: 0.5rem 0.7rem;
+        height: auto;
+        font-size: 0.875rem;
+    }
+
+    &.btn-lg {
+        padding: 0.8rem 1.5rem;
+        height: 3.5rem;
+    }
+
     &.btn-primary {
-        background-color: theme('colors.primary400') !important;
+        background-color: theme('colors.BLGR500') !important;
         color: theme('colors.N0') !important;
 
         &:hover {
-            background-color: theme('colors.primary500') !important;
+            background-color: theme('colors.BLGR800') !important;
         }
 
         &:active {
-            box-shadow: 0px 0px 0px 4px #E6EEF4;
+            box-shadow: 0px 0px 0px 4px #e6eef4;
         }
 
         &:focus {
-            background-color: theme('colors.primary600') !important;
+            background-color: theme('colors.BLGR200') !important;
         }
 
         &:disabled {
-            background-color: theme('colors.primary100') !important;
+            background-color: theme('colors.GR500') !important;
         }
     }
 
     &.btn-secondary {
-        background-color: theme('colors.N75') !important;
-        color: theme('colors.N800') !important;
+        background-color: theme('colors.BG2') !important;
+        color: theme('colors.BLGR500') !important;
         border: 1px solid;
-        border-color: theme('colors.N400');
+        border-color: theme('colors.BLGR500');
 
         &:hover {
-            background-color: theme('colors.N100') !important;
+            background-color: theme('colors.BLGR100') !important;
         }
 
         &:active {
-            box-shadow: 0px 0px 0px 4px #E6EEF4;
+            box-shadow: 0px 0px 0px 4px #e6eef4;
         }
 
         &:focus {
-            background-color: theme('colors.N200') !important;
+            background-color: theme('colors.BG2') !important;
         }
 
         &:disabled {
-            border-color: theme('colors.N300');
-            background-color: theme('colors.N75') !important;
-            color: theme('colors.N500') !important;
+            border-color: theme('colors.GR700');
+            background-color: theme('colors.BG2') !important;
+            color: theme('colors.T3') !important;
         }
     }
 
@@ -94,7 +111,7 @@ button.app-button {
 
         &:active {
             background-color: theme('colors.primary50') !important;
-            box-shadow: 0px 0px 0px 4px #F8FAFC;
+            box-shadow: 0px 0px 0px 4px #f8fafc;
         }
 
         &:focus {
@@ -106,20 +123,33 @@ button.app-button {
         }
     }
 
+    &.btn-text {
+        background-color: theme('colors.N0') !important;
+        color: theme('colors.BLGR300') !important;
+        font-weight: 600 !important;
+
+        &:hover {
+            color: theme('colors.BLGR500') !important;
+        }
+
+        &:disabled {
+            color: theme('colors.primary100') !important;
+        }
+    }
+
     &.btn-error {
-        background-color: theme('colors.error400') !important;
+        background-color: theme('colors.error300') !important;
         color: theme('colors.N0') !important;
 
         &:hover {
             background-color: theme('colors.error500') !important;
-        }    
+        }
 
         &:active {
             box-shadow: 0px 0px 0px 4px #faeeec;
         }
 
         &:focus {
-            background-color: theme('colors.error200') !important;
             outline: none;
         }
 

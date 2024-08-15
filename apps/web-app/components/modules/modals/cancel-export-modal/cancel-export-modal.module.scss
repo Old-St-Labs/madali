@@ -1,0 +1,23 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+
+.container {
+    @apply h-fit w-fit flex flex-col items-center justify-center px-16 py-10 relative;
+}
+
+.button-row {
+    @apply flex flex-row items-center gap-[17px];
+}
+
+.close-btn {
+    @apply absolute top-0 right-0 p-3 cursor-pointer;
+}
+
+.hover-fill {
+    @apply hover:fill-BLGR700 fill-BLGR500;
+}

@@ -22,7 +22,9 @@ interface InputProps {
     onLeftIconClick?: () => void
 
     rightIcon?: React.ElementType<IIcon>,
-    onRightIconClick?: () => void
+    onRightIconClick?: () => void,
+    isPlaceholderHidden?: boolean,
+    numOfRows?: number,
 }
 
 export const Input = ({
@@ -40,7 +42,9 @@ export const Input = ({
     onLeftIconClick,
     rightIcon: RightIcon,
     onRightIconClick,
+    isPlaceholderHidden = false,
     component: Component = 'input',
+    numOfRows = 4,
     ...rest
 }: InputProps) => {
     const [val, setVal] = React.useState<string | number>('');
@@ -60,47 +64,55 @@ export const Input = ({
     };
 
     return (
-        <div className={clsx(cx['input-wrapper'], {
-            [cx['input-error']]: variant === 'error',
-            [cx['input-disabled']]: variant === 'disabled',
-            [cx['--textarea']]: Component === 'textarea',
-            [`${className}`]: !!className
-        })}>
-            <div className={cx['input-field']}>
+        <>
+            {label?.length !== 0 && (
+                <div className={cx['input-label--top']}>{label}</div>
+            )}
 
-                {!!LeftIcon &&
+            <div className={clsx(cx['input-wrapper'], {
+                [cx['input-error']]: variant === 'error',
+                [cx['input-disabled']]: variant === 'disabled',
+                [cx['--textarea']]: Component === 'textarea',
+                [`${className}`]: !!className
+            })}>
+                <div className={cx['input-field']}>
+
+                    {!!LeftIcon &&
                     <div onClick={onLeftIconClick} className={cx['input__icon']}>
                         <LeftIcon size={20} />
                     </div>
-                }
+                    }
 
-                <Component
-                    name={name}
-                    type={type}
-                    readOnly={variant === 'disabled'}
-                    className={clsx(cx['input'], 'bg-transparent', { 'hover:cursor-default': variant === 'disabled' })}
-                    placeholder={placeholder || label}
-                    value={value ? val : undefined}
-                    defaultValue={defaultValue}
-                    spellCheck={false}
-                    rows={4}
-                    onChange={onInputChange}
-                    {...rest} />
-                <div className={clsx(cx['label'], {
-                    [cx['label-with-placeholder']]: placeholder?.length !== 0,
-                    // [cx['label-with--prefixIcon']]: withPrefixIcon
-                })}>{label}</div>
+                    <Component
+                        name={name}
+                        type={type}
+                        readOnly={variant === 'disabled'}
+                        className={clsx(cx['input'], 'bg-transparent', { 'hover:cursor-default': variant === 'disabled' })}
+                        placeholder={placeholder || label}
+                        value={value ? val : undefined}
+                        defaultValue={defaultValue}
+                        spellCheck={false}
+                        rows={numOfRows}
+                        onChange={onInputChange}
+                        {...rest} />
+                    {!isPlaceholderHidden && (
+                        <div className={clsx(cx['label'], {
+                            [cx['label-with-placeholder']]: placeholder &&placeholder?.length !== 0,
+                            // [cx['label-with--prefixIcon']]: withPrefixIcon
+                        })}>{label}</div>
+                    )}
 
-                {!!RightIcon &&
+                    {!!RightIcon &&
                     <div onClick={onRightIconClick} className={clsx(cx['input__icon'], onRightIconClick ? 'hover:cursor-pointer' : '')}>
                         <RightIcon size={20} color={variant === 'error' ? colors.error500 : undefined} />
                     </div>
-                }
+                    }
 
+                </div>
+
+                {helperText && <div className={cx['helper-text']}>{helperText}</div>}
             </div>
-
-            <div className={cx['helper-text']}>{helperText}</div>
-        </div>
+        </>
     );
 };
 
