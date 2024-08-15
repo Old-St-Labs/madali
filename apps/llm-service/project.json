@@ -1,0 +1,80 @@
+{
+    "name": "llm-service",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/llm-service/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nx/webpack:webpack",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "target": "node",
+                "compiler": "tsc",
+                "outputPath": "dist/apps/llm-service",
+                "main": "apps/llm-service/src/main.ts",
+                "tsConfig": "apps/llm-service/tsconfig.app.json",
+                "assets": ["apps/llm-service/src/assets"],
+                "generatePackageJson": true,
+                "webpackConfig": "apps/llm-service/webpack.config.js"
+            },
+            "configurations": {
+                "lambda-serverless": {
+                    "main": "apps/llm-service/src/lambda.ts"
+                },
+                "development": {},
+                "production": {}
+            }
+        },
+        "build-serverless-files": {
+            "executor": "nx:run-commands",
+            "options": {
+                "cwd": "dist/apps/llm-service",
+                "commands": [
+                    {
+                        "command": "yarn install"
+                    },
+                    {
+                        "command": "cp -r ../../../node_modules/.prisma node_modules",
+                        "forwardAllArgs": false
+                    },
+                    {
+                        "command": "cp  ../../../.env.{args.stage} ./.env"
+                    },
+                    {
+                        "command": "cp  ../../../serverless-files/serverless-llm-service.yml serverless.yml",
+                        "forwardAllArgs": false
+                    }
+                ],
+                "parallel": false
+            }
+        },
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "llm-service:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "llm-service:build:development"
+                },
+                "production": {
+                    "buildTarget": "llm-service:build:production"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint",
+            "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/llm-service/jest.config.ts"
+            }
+        }
+    },
+    "tags": []
+}

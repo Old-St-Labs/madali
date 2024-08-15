@@ -1,3 +1,4 @@
+
 export const Schema = {
     version: '0.0.1',
     indexes: {
@@ -57,7 +58,14 @@ export const Schema = {
             user: { type: String },
             action: { type: String },
             data: { type: String },
-
+        },
+        PredefinedQuestion: {
+            PK: { type: String, value: 'PREDEFINED_QUESTION' },
+            SK: { type: String, value: '${predefinedQuestionId}' },
+            predefinedQuestionId: { type: String, generate: 'ulid' },
+            GSI2PK: { type: String },
+            questionType: { type: String, enum: ['text'], default: 'text' },
+            question: { type: String },
         }
     } as const,
     params: {
