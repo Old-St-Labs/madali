@@ -24,11 +24,11 @@ phases:
           do echo "Building $SERVICE_NAME..." ; 
           npm run build-${SERVICE_NAME} ;
           yarn --cwd dist/apps/${SERVICE_NAME} install ;
-          docker build --no-cache --build-arg SERVICE_NAME=${SERVICE_NAME} -t ${ENVIRONMENT-NAME}-${SERVICE_NAME} -f BackendDockerfile . ;
+          docker build --no-cache --build-arg SERVICE_NAME=${SERVICE_NAME} -t ${PROJECT-NAME}-${ENVIRONMENT-NAME}-${SERVICE_NAME} -f BackendDockerfile . ;
           echo "Pushing image for $SERVICE_NAME to ECR..." ;
-          docker tag ${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ;
-          docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ;
-          aws lambda update-function-code --function-name ${ENVIRONMENT-NAME}-${SERVICE_NAME} --image-uri ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ;
+          docker tag ${PROJECT-NAME}-${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${PROJECT-NAME}-${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ;
+          docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${PROJECT-NAME}-${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ;
+          aws lambda update-function-code --function-name ${PROJECT-NAME}-${ENVIRONMENT-NAME}-${SERVICE_NAME} --image-uri ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${PROJECT-NAME}-${ENVIRONMENT-NAME}-${SERVICE_NAME}:latest ;
         done
   post_build:
     commands:

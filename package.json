@@ -16,15 +16,16 @@
         "prisma-local:db-pull": "dotenv -e .env.local -- npx prisma db pull",
         "prisma-local:apply": "npm run prisma-local:format && npm run prisma-local:migrate",
         "build-web-app": "nx build web-app --skip-nx-cache",
-        "build-authentication-service-serverless": "nx build authentication-service --skip-nx-cache",
-        "build-cognito-custom-message-serverless": "nx build cognito-custom-message --skip-nx-cache",
-        "build-admin-service-serverless": "nx build admin-service --skip-nx-cache --configuration=lambda-serverless",
-        "build-user-service-serverless": "nx build user-service --skip-nx-cache --configuration=lambda-serverless",
-        "build-logging-service-serverless": "nx build logging-service --skip-nx-cache",
-        "build-file-service-serverless": "nx build file-service --skip-nx-cache --configuration=lambda-serverless",
-        "build-email-service-serverless": "nx build email-service --skip-nx-cache --configuration=lambda-serverless",
+        "build-authentication-service": "nx build authentication-service --skip-nx-cache",
+        "build-cognito-custom-message": "nx build cognito-custom-message --skip-nx-cache",
+        "build-admin-service": "nx build admin-service --skip-nx-cache --configuration=lambda-serverless",
+        "build-user-service": "nx build user-service --skip-nx-cache --configuration=lambda-serverless",
+        "build-logging-service": "nx build logging-service --skip-nx-cache",
+        "build-file-service": "nx build file-service --skip-nx-cache --configuration=lambda-serverless",
+        "build-email-service": "nx build email-service --skip-nx-cache --configuration=lambda-serverless",
         "storybook": "export NODE_OPTIONS=--openssl-legacy-provider && nx storybook ui",
         "list-apps-dirs": "find apps -mindepth 1 -maxdepth 1 -type d ! -name 'web-app' | awk -F/ '{print $NF}' > apps.txt"    
+
     },
     "private": true,
     "dependencies": {
