@@ -18,6 +18,6 @@ export type Color =
     'text-P600' | 'text-P500' | 'text-P400' | 'text-P300' | 'text-P200' | 'text-P100' | 'text-P50' |
     'text-O600' | 'text-O500' | 'text-O400' | 'text-O300' | 'text-O200' | 'text-O100' | 'text-O50' |
     'text-F600' | 'text-F500' | 'text-F400' | 'text-F300' | 'text-F200' | 'text-F100' | 'text-F50' |
-    'text-brand-primary' | 'text-brand-seconday' | 'text-brand-dark' | 'text-brand-light';
+    'text-brand-primary' | 'text-brand-seconday' | 'text-brand-dark' | 'text-brand-light' | 'text-B700' | 'text-BLGR300' | 'text-B800' | 'text-T1' | 'text-T2' | 'text-T4';
 
 export type Weight = 'font-normal' | 'font-medium' | 'font-semibold' | 'font-bold' | 'font-extrabold';

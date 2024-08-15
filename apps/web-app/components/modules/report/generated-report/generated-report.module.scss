@@ -1,0 +1,15 @@
+.container {
+    @apply w-full;
+
+    &__header {
+        @apply flex flex-col gap-1;
+    }
+
+    &__input {
+        @apply w-full bg-BG2 my-6;
+    }
+
+    &__body {
+        @apply bg-BG2 h-auto border border-GR500 mb-5;
+    }
+}

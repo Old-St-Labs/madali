@@ -1,0 +1,7 @@
+.container {
+    @apply p-6 bg-GR50 max-h-[42rem] overflow-y-auto;
+
+    &__header {
+        @apply flex gap-14 items-center;
+    }
+}

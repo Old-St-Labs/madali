@@ -23,7 +23,7 @@ export function Typography({
     size = 'text-base',
     component = 'p',
     className = '',
-    family = 'font-jakarta',
+    family = 'font-poppins',
     children,
     style,
     onClick

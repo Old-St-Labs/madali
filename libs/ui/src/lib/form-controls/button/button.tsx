@@ -15,7 +15,8 @@ export interface ButtonProps {
     rightIcon?: React.ElementType<IIcon>,
     type?: ButtonType | undefined,
     onClick?: () => void,
-    isRounded?: boolean
+    isRounded?: boolean,
+    size?: 'sm' | 'md' | 'lg',
 }
 
 export function Button({
@@ -28,12 +29,13 @@ export function Button({
     rightIcon: RightIcon,
     type = 'button',
     onClick,
-    isRounded
+    isRounded,
+    size = 'md',
 }: ButtonProps) {
 
     return (
         <button
-            className={clsx(styles['app-button'], styles[`btn-${variant}`], className, { 'rounded-full': isRounded, 'rounded': !isRounded })}
+            className={clsx(styles['app-button'], styles[`btn-${variant}`], className, styles[`btn-${size}`], { 'rounded-full': isRounded, 'rounded': !isRounded })}
             disabled={disabled || isProcessing}
             type={type}
             onClick={onClick}>

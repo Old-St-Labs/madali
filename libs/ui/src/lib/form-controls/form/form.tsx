@@ -116,6 +116,7 @@ export const Form = <T extends {}>({
                     rightIcon={col.inputType === 'password'
                         ? viewPassword.includes(col.name) ? EyeOn : EyeOff
                         : undefined}
+                    isPlaceholderHidden={true}
                     onRightIconClick={() => toggleVisible(col.name)} />;
         }
     };
@@ -138,7 +139,7 @@ export const Form = <T extends {}>({
                                 {row.map((col: FormStructureItem, c) =>
                                     col.isSpacer
                                         ? <div className='flex-1' key={`col-${c}`} />
-                                        : <div className={clsx('pb-2 flex-1 relative', { 'pt-6': col.fieldType !== 'checkbox' })} key={`col-${c}`}>
+                                        : <div className={clsx('pb-2 flex-1 relative', { 'pt-4': col.fieldType !== 'checkbox' })} key={`col-${c}`}>
                                             <Controller
                                                 control={control}
                                                 name={col.name as FieldPath<T>}
