@@ -59,6 +59,15 @@
             "@message-queue-lib": [
                 "libs/backend/message-queue-lib/src/index.ts"
             ],
+            "@predefined-question-database-lib": [
+                "libs/backend/database-services/predefined-question-database-lib/src/index.ts"
+            ],
+            "@predefined-question-service": [
+                "libs/backend/app-services/predefined-question-service-lib/src/predefined-question-service/src/index.ts"
+            ],
+            "@predefined-question-service-lib": [
+                "libs/backend/app-services/predefined-question-service-lib/src/index.ts"
+            ],
             "@prisma-db-lib": ["libs/backend/prisma-db-lib/src/index.ts"],
             "@sqs-service-lib": ["libs/backend/sqs-service-lib/src/index.ts"],
             "@ui": ["libs/ui/src/index.ts"],
@@ -78,8 +87,14 @@
             "@user-service-lib": [
                 "libs/backend/app-services/user-service-lib/src/index.ts"
             ],
+            "@llm-service-lib": [
+                "libs/backend/app-services/llm-service-lib/src/index.ts"
+            ],
             "@utils": ["libs/utils/src/index.ts"],
-            "@web-app/*": ["apps/web-app/*"]
+            "@web-app/*": ["apps/web-app/*"],
+            "@yohda-integration-service-lib": [
+                "libs/backend/app-services/yohda-integration-service-lib/src/index.ts"
+            ]
         }
     },
     "exclude": ["node_modules", "tmp"],
