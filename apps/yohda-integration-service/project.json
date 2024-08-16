@@ -15,11 +15,34 @@
                 "main": "apps/yohda-integration-service/src/main.ts",
                 "tsConfig": "apps/yohda-integration-service/tsconfig.app.json",
                 "assets": ["apps/yohda-integration-service/src/assets"],
+                "generatePackageJson": true,
                 "webpackConfig": "apps/yohda-integration-service/webpack.config.js"
             },
             "configurations": {
+                "lambda-serverless": {
+                    "main": "apps/yohda-integration-service/src/lambda.ts"
+                },
                 "development": {},
                 "production": {}
+            }
+        },
+        "build-serverless-files": {
+            "executor": "nx:run-commands",
+            "options": {
+                "cwd": "dist/apps/yohda-integration-service",
+                "commands": [
+                    {
+                        "command": "yarn install"
+                    },
+                    {
+                        "command": "cp  ../../../.env.{args.stage} ./.env"
+                    },
+                    {
+                        "command": "cp  ../../../serverless-files/serverless-yohda-integration-service.yml serverless.yml",
+                        "forwardAllArgs": false
+                    }
+                ],
+                "parallel": false
             }
         },
         "serve": {

@@ -15,11 +15,34 @@
                 "main": "apps/predefined-question-service/src/main.ts",
                 "tsConfig": "apps/predefined-question-service/tsconfig.app.json",
                 "assets": ["apps/predefined-question-service/src/assets"],
+                "generatePackageJson": true,
                 "webpackConfig": "apps/predefined-question-service/webpack.config.js"
             },
             "configurations": {
+                "lambda-serverless": {
+                    "main": "apps/predefined-question-service/src/lambda.ts"
+                },
                 "development": {},
                 "production": {}
+            }
+        },
+        "build-serverless-files": {
+            "executor": "nx:run-commands",
+            "options": {
+                "cwd": "dist/apps/predefined-question-service",
+                "commands": [
+                    {
+                        "command": "yarn install"
+                    },
+                    {
+                        "command": "cp  ../../../.env.{args.stage} ./.env"
+                    },
+                    {
+                        "command": "cp  ../../../serverless-files/serverless-predefined-question-service.yml serverless.yml",
+                        "forwardAllArgs": false
+                    }
+                ],
+                "parallel": false
             }
         },
         "serve": {
