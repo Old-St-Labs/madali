@@ -21,7 +21,7 @@ export const configuration = async () => {
         FRONTEND_URL: process.env.FRONTEND_URL,
         AWS_LOGGING_QUEUE_URL: process.env.AWS_LOGGING_QUEUE_URL,
         YOHDA_API_URL: process.env.YOHDA_API_URL,
-        OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+        OPENAI_API_KEY: await awsSecrets['OPENAI_API_KEY'],
         OPENAI_ASSISTANT_ID: process.env.OPENAI_ASSISTANT_ID
     };
 };

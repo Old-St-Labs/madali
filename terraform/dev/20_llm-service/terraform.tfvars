@@ -19,7 +19,6 @@ lambda_environment_variables = {
   AWS_COGNITO_AUTHORITY = "https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_HCWeP7lQn"
   AWS_COGNITO_CLIENT_ID = "2m25s0oik2vtlagsvnv3keib4v"
   AWS_LOGGING_QUEUE_URL = "https://sqs.eu-west-2.amazonaws.com/061051257271/madali-dev-logging-queue"
-  OPENAI_API_KEY = "sk-proj-HM9umHYKAQ37CkGClvnCT3BlbkFJsA7jw5SYfNOL0BjrzYoU"
   OPENAI_ASSISTANT_ID = "asst_ss0DcC2u7wK01LAp9kHOeYJj"
 }
 
