@@ -1,5 +1,5 @@
 
-service_name ="email-service"
+service_name ="llm-service"
 environment= "dev"
 project = "madali"
 region = "eu-west-2"
@@ -19,10 +19,11 @@ lambda_environment_variables = {
   AWS_COGNITO_AUTHORITY = "https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_HCWeP7lQn"
   AWS_COGNITO_CLIENT_ID = "2m25s0oik2vtlagsvnv3keib4v"
   AWS_LOGGING_QUEUE_URL = "https://sqs.eu-west-2.amazonaws.com/061051257271/madali-dev-logging-queue"
+  OPENAI_ASSISTANT_ID = "asst_ss0DcC2u7wK01LAp9kHOeYJj"
 }
 
 codebuild_environment_variables ={
-  SERVICE_NAME ="email-service"
+  SERVICE_NAME ="llm-service"
   AWS_ACCOUNT_ID = "061051257271"
   AWS_REGION = "eu-west-2"
   ENVIRONMENT="dev"
