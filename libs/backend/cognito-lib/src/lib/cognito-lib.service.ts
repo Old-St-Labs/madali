@@ -5,10 +5,14 @@ import {
     AdminInitiateAuthCommand,
     AdminRespondToAuthChallengeCommand,
     AdminSetUserPasswordCommand,
+    AuthFlowType,
+    ChallengeNameType,
     CognitoIdentityProviderClient,
     ConfirmForgotPasswordCommand,
     ConfirmSignUpCommand,
+    DeliveryMediumType,
     ForgotPasswordCommand,
+    MessageActionType,
     ResendConfirmationCodeCommand,
     SignUpCommand
 } from '@aws-sdk/client-cognito-identity-provider';
@@ -70,7 +74,7 @@ export class CognitoLibService {
                 'AWS_COGNITO_USER_POOL_ID'
             ),
             ClientId: this.configService.get<string>('AWS_COGNITO_CLIENT_ID'),
-            AuthFlow: 'ADMIN_USER_PASSWORD_AUTH',
+            AuthFlow: AuthFlowType.ADMIN_USER_PASSWORD_AUTH,
             AuthParameters: {
                 USERNAME: data.email,
                 PASSWORD: data.password,
@@ -170,7 +174,7 @@ export class CognitoLibService {
         this.logger.log(`Completing New Password for: ${data.email}`);
 
         const input = {
-            ChallengeName: 'NEW_PASSWORD_REQUIRED',
+            ChallengeName: 'NEW_PASSWORD_REQUIRED' as ChallengeNameType,
             UserPoolId: this.configService.get<string>('AWS_COGNITO_USER_POOL_ID'),
             ClientId: this.configService.get<string>('AWS_COGNITO_CLIENT_ID'),
             ChallengeResponses: {
@@ -243,9 +247,9 @@ export class CognitoLibService {
                 },
             ],
             ForceAliasCreation: false,
-            MessageAction: 'RESEND',
+            MessageAction: 'RESEND' as MessageActionType,
 
-            DesiredDeliveryMediums: ['EMAIL'],
+            DesiredDeliveryMediums: ['EMAIL'] as DeliveryMediumType[],
         };
         const command = new AdminCreateUserCommand(input);
         const response = await this.cognitoClient.send(command);
@@ -276,7 +280,7 @@ export class CognitoLibService {
             ],
             ForceAliasCreation: false,
 
-            DesiredDeliveryMediums: ['EMAIL'],
+            DesiredDeliveryMediums: ['EMAIL'] as DeliveryMediumType[],
         };
         const command = new AdminCreateUserCommand(input);
 

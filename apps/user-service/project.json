@@ -43,10 +43,6 @@
                         "command": "yarn install"
                     },
                     {
-                        "command": "cp -r ../../../node_modules/.prisma node_modules",
-                        "forwardAllArgs": false
-                    },
-                    {
                         "command": "cp  ../../../.env.{args.stage} ./.env"
                     },
                     {
