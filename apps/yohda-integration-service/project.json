@@ -1,0 +1,53 @@
+{
+    "name": "yohda-integration-service",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/yohda-integration-service/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nx/webpack:webpack",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "target": "node",
+                "compiler": "tsc",
+                "outputPath": "dist/apps/yohda-integration-service",
+                "main": "apps/yohda-integration-service/src/main.ts",
+                "tsConfig": "apps/yohda-integration-service/tsconfig.app.json",
+                "assets": ["apps/yohda-integration-service/src/assets"],
+                "webpackConfig": "apps/yohda-integration-service/webpack.config.js"
+            },
+            "configurations": {
+                "development": {},
+                "production": {}
+            }
+        },
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "yohda-integration-service:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "yohda-integration-service:build:development"
+                },
+                "production": {
+                    "buildTarget": "yohda-integration-service:build:production"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint",
+            "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/yohda-integration-service/jest.config.ts"
+            }
+        }
+    },
+    "tags": []
+}

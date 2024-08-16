@@ -35,3 +35,4 @@ export class DynamoDbService {
 export type UserDataType = Entity<typeof Schema.models.User>;
 export type EmailTemplateDataType = Entity<typeof Schema.models.EmailTemplate>;
 export type LogDataType = Entity<typeof Schema.models.Logs>;
+export type PredefinedQuestionDataType = Entity<typeof Schema.models.PredefinedQuestion>;

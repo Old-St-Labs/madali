@@ -1,0 +1,53 @@
+{
+    "name": "predefined-question-service",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/predefined-question-service/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nx/webpack:webpack",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "target": "node",
+                "compiler": "tsc",
+                "outputPath": "dist/apps/predefined-question-service",
+                "main": "apps/predefined-question-service/src/main.ts",
+                "tsConfig": "apps/predefined-question-service/tsconfig.app.json",
+                "assets": ["apps/predefined-question-service/src/assets"],
+                "webpackConfig": "apps/predefined-question-service/webpack.config.js"
+            },
+            "configurations": {
+                "development": {},
+                "production": {}
+            }
+        },
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "predefined-question-service:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "predefined-question-service:build:development"
+                },
+                "production": {
+                    "buildTarget": "predefined-question-service:build:production"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint",
+            "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/predefined-question-service/jest.config.ts"
+            }
+        }
+    },
+    "tags": []
+}
