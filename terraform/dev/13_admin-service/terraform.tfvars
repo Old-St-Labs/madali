@@ -14,6 +14,10 @@ lambda_environment_variables = {
   DYNAMO_DB_MAIN_TABLE = "madali-dev-table"
   AWS_SECRET_ID = "madali-dev-secret"
   DEFAULT_REGION = "eu-west-2"
+  AWS_COGNITO_USER_POOL_ID = "eu-west-2_HCWeP7lQn"
+  AWS_COGNITO_AUTHORITY = "https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_HCWeP7lQn"
+  AWS_COGNITO_CLIENT_ID = "2m25s0oik2vtlagsvnv3keib4v"
+  AWS_LOGGING_QUEUE_URL = "https://sqs.eu-west-2.amazonaws.com/061051257271/madali-dev-logging-queue"
 }
 
 codebuild_environment_variables ={

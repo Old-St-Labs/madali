@@ -1,5 +1,5 @@
 
-service_name ="email-service"
+service_name ="yohda-integration-service"
 environment= "dev"
 project = "madali"
 region = "eu-west-2"
@@ -22,7 +22,7 @@ lambda_environment_variables = {
 }
 
 codebuild_environment_variables ={
-  SERVICE_NAME ="email-service"
+  SERVICE_NAME ="yohda-integration-service"
   AWS_ACCOUNT_ID = "061051257271"
   AWS_REGION = "eu-west-2"
   ENVIRONMENT="dev"
