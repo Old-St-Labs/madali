@@ -18,14 +18,6 @@ export class AuthenticationServiceLibService {
     }
 
     async login(data: CognitoDto) {
-
-        const userRecord = await this.userService.findByEmail(data.email);
-
-
-        if (!userRecord || !userRecord == null) {
-            throw new UnauthorizedException('Email Does Not Exist');
-        }
-
         try {
             return await this.cognitoService.loginUser(data);
         } catch (error) {
