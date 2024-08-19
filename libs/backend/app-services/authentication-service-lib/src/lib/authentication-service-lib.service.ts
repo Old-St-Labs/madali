@@ -137,14 +137,6 @@ export class AuthenticationServiceLibService {
     }
 
     async forgotPassword(data: CognitoEmailDto) {
-
-        const userRecord = await this.userService.findByEmail(data.email);
-
-        if (!userRecord || !userRecord == null) {
-            throw new UnauthorizedException('Email Does Not Exist');
-        }
-
-
         const authenticationSQSURL = this.configService.get<string>(
             'AWS_AUTHENTICATION_QUEUE_URL'
         );
