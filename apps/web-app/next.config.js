@@ -20,7 +20,8 @@ const nextConfig = {
         AWS_COGNITO_USER_POOL_ID: process.env.AWS_COGNITO_USER_POOL_ID,
         AWS_COGNITO_CLIENT_ID: process.env.AWS_COGNITO_CLIENT_ID,
         // Api URLs
-        USER_BASE_URL: process.env.USER_BASE_URL
+        USER_BASE_URL: process.env.USER_BASE_URL,
+        API_AUTH_URL: process.env.API_AUTH_URL,
     },
     async redirects() {
         if (process.env.NX_WEB_APP_API_KEY) {

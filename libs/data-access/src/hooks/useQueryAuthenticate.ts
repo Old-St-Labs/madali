@@ -157,18 +157,11 @@ export const useForgotPasswordMutation = () => {
             });
         }, onSuccess(_, data: CognitoEmailDto) {
             router.push(`/auth/set-new-password?email=${data.email}`);
-
-            setFlashNotification({
-                title: 'The verification code has been sent to your email address',
-                message: 'Please check your inbox and enter the code to continue.',
-                alertType: 'success'
-            });
         }
     });
 };
 
 export const useConfirmPasswordChangeMutation = () => {
-    const router = useRouter();
     const setFlashNotification = useStore((state) => state.setFlashNotification);
 
     return useMutation({
@@ -189,14 +182,6 @@ export const useConfirmPasswordChangeMutation = () => {
                 message: err.response.data.message,
                 alertType: 'error',
                 duration: 4000
-            });
-        }, onSuccess() {
-            router.push('/auth/login');
-
-            setFlashNotification({
-                title: 'Successfully set new password',
-                message: 'Please login using your new password.',
-                alertType: 'success'
             });
         }
     });
