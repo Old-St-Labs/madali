@@ -156,6 +156,8 @@ export const useForgotPasswordMutation = () => {
                 alertType: 'error'
             });
         }, onSuccess(_, data: CognitoEmailDto) {
+            if (router.pathname === '/auth/set-new-password') return;
+
             router.push(`/auth/set-new-password?email=${data.email}`);
         }
     });

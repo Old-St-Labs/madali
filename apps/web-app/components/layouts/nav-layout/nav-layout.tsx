@@ -4,6 +4,7 @@ import { STORAGE_KEY } from '@web-app/config/constants';
 import HEADER_LOGO from '@web-app/public/assets/navlayout_logo.png';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import styles from './nav-layout.module.scss';
 
@@ -12,11 +13,14 @@ export interface NavLayoutProps {
 }
 
 export function NavLayout({ children }: NavLayoutProps) {
+    const router = useRouter();
     const clearAuthedUser = useStore((state) => state.clearAuthedUser);
 
     const handleLogout = () => {
         Cookies.remove(STORAGE_KEY.ACCESS_TOKEN);
         clearAuthedUser();
+
+        router.replace('/auth/login');
     };
 
     return (

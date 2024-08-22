@@ -1,7 +1,7 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import {
     useConfirmPasswordChangeMutation,
-    useResendConfirmationMutation,
+    useForgotPasswordMutation,
 } from '@data-access/hooks';
 import { CognitoForgotPasswordDto } from '@dto';
 import { Button, Form, Typography } from '@ui';
@@ -32,7 +32,8 @@ export const SetNewPassword: NextPageWithLayout<SetNewPasswordProps> = () => {
         useState<boolean>(false);
 
     // mutation hooks
-    const resendCodeMutation = useResendConfirmationMutation(enableCounting);
+    // const resendCodeMutation = useResendConfirmationMutation(enableCounting);
+    const forgotPasswordMutation = useForgotPasswordMutation();
     const confirmPasswordMutation = useConfirmPasswordChangeMutation();
 
     const [error, setError] = useState<{ [key: string]: string }>(null);
@@ -40,6 +41,7 @@ export const SetNewPassword: NextPageWithLayout<SetNewPasswordProps> = () => {
     const handleSubmit = async (data: { [key: string]: string }) => {
         confirmPasswordMutation.mutate({
             email: router.query.email as string,
+            code: data.verificationCode,
             password: data.password,
         } as CognitoForgotPasswordDto);
     };
@@ -50,7 +52,7 @@ export const SetNewPassword: NextPageWithLayout<SetNewPasswordProps> = () => {
         if (confirmPasswordMutation.isLoading) return;
         enableCounting(true);
 
-        resendCodeMutation.mutate(router.query.email as string);
+        forgotPasswordMutation.mutate({ email: router.query.email as string });
     };
 
     structure[0].fields[0][0]['extra'] = (
