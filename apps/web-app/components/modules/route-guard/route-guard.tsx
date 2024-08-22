@@ -42,12 +42,12 @@ function RouteGuard({ children }) {
         setIsTransitioned(false);
         // console.log(url);
         // redirect to login page if accessing a private page and not logged in 
-        const publicPaths = ['/login', '/create-account', '/enter-otp', '/forgot-password', '/set-new-password'];
+        const publicPaths = ['/auth/login', '/auth/complete-profile', '/auth/forgot-password', '/auth/set-new-password'];
         const path = url.split('?')[0];
         const token = Cookies.get(STORAGE_KEY.ACCESS_TOKEN);
 
         if ((!token || (token && checkIfTokenInvalid(token))) && !publicPaths.includes(path)) {
-            // router.replace('/auth/login');
+            router.replace('/auth/login');
         }
     }
 

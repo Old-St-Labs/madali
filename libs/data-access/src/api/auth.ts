@@ -5,9 +5,8 @@ import { AxiosConfig } from './axiosConfig';
 const API_AUTH = '/authentication';
 
 class AuthApi extends AxiosConfig {
-
     constructor() {
-        super(process.env.API_USER_URL, false, false);
+        super(process.env.API_AUTH_URL, false, false);
     }
 
     public login = async <T>(params: CognitoDto): Promise<T> => {

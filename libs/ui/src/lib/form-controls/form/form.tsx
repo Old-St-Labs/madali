@@ -169,6 +169,7 @@ export const Form = <T extends {}>({
                     type='submit'
                     disabled={isProcessing}
                     className='flex-1'
+                    size='lg'
                     isProcessing={isProcessing} />
             </div>
         </form>

@@ -12,9 +12,9 @@ export const schema = yup.object().shape({
 // The passwords you entered do not match. Please try again.
 export const structure: FormSection[] = [{
     fields: [    
-    //     [
-    //     { label: 'Verification Code', placeholder: '', name: 'verificationCode' }
-    // ],
+        [
+            { label: 'Verification Code', placeholder: '', name: 'verificationCode' }
+        ],
         [
             { label: 'New Password', placeholder: '', name: 'password', inputType: 'password' }
         ], [

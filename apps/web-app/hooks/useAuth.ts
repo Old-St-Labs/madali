@@ -26,7 +26,7 @@ const useAuth = () => {
 
         updateAuthedUser(data);
 
-        router.replace('/subscribe');
+        router.replace('/search');
     };
 
     return { authenticationUser };
