@@ -3,16 +3,14 @@
     "compilerOptions": {
         "module": "commonjs",
         "forceConsistentCasingInFileNames": true,
-        "declaration": true,
         "strict": true,
-        "composite": true,
         "noImplicitOverride": true,
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true
     },
     "files": [],
-    "include": ["src/**/*.ts"],
+    "include": [],
     "references": [
         {
             "path": "./tsconfig.lib.json"
