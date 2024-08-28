@@ -35,6 +35,8 @@ export function SearchState({ searchState }: SearchStateProps) {
         }
     };
 
+    console.log('test', searchState);
+
     return (
         <div
             className={cn(styles['container'], {
