@@ -1,3 +1,4 @@
+import { UserCognito } from '@auth-guard-lib';
 import { ResponseDto, YohdaRecordDto } from '@dto';
 import { NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -12,8 +13,8 @@ describe('YohdaIntegrationServiceLibService', () => {
     let mockAxios: jest.Mocked<typeof axios>;
 
     const mockYohdaIntegrationServiceLibService = {
-        findByJobNumber: jest.fn().mockImplementation((jobNumber: string) => {
-            if (jobNumber === '56789') {
+        findByJobNumber: jest.fn().mockImplementation((jobNumber: string, currentUser: UserCognito) => {
+            if (jobNumber === '56789' || currentUser.username == 'arben@old.st') {
                 mockAxios.get('56789');
 
                 return Promise.reject(new NotFoundException('Job Number Not Found'));
@@ -67,14 +68,14 @@ describe('YohdaIntegrationServiceLibService', () => {
             .overrideProvider(ConfigService)
             .useValue(mockConfigService)
             .compile();
-        
+
         service = module.get(YohdaIntegrationServiceLibService);
 
         mockAxios = axios as jest.Mocked<typeof axios>;
 
         mockAxios.get.mockResolvedValue({
             data: {
-                data : [
+                data: [
                     {
                         employee_id: 'sample_id',
                         company: 'sample_company',
@@ -101,7 +102,7 @@ describe('YohdaIntegrationServiceLibService', () => {
 
     // find by job number happy path
     it('it should find jobs by job number', async () => {
-        const result = await service.findByJobNumber('12345');
+        const result = await service.findByJobNumber('12345', { 'username': 'arben@oldst' } as UserCognito);
 
         expect(result.statusCode).toEqual(200);
         expect(mockAxios.get).toHaveBeenCalledWith(expect.stringContaining('12345'));
@@ -109,7 +110,7 @@ describe('YohdaIntegrationServiceLibService', () => {
 
     // find by job number not found
     it('it should NOT find a job by job number', async () => {
-        await expect(service.findByJobNumber('56789'))
+        await expect(service.findByJobNumber('56789', { 'username': 'arben@oldst' } as UserCognito))
             .rejects.toThrow(new NotFoundException('Job Number Not Found'));
         expect(mockAxios.get).toHaveBeenCalledWith(expect.stringContaining('56789'));
     });

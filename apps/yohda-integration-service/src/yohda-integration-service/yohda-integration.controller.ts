@@ -1,10 +1,13 @@
+import { CognitoAuthGuard, CurrentUser, UserCognito } from '@auth-guard-lib';
 import { ResponseDto, YohdaRecordDto } from '@dto';
-import { Controller, Get, Inject, Param } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Inject, Param, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { YohdaIntegrationServiceLib } from '@yohda-integration-service-lib';
 
 @Controller('yohda-integration')
 @ApiTags('yohda-integration')
+@ApiBearerAuth('JWT-auth')
+@UseGuards(CognitoAuthGuard)
 
 export class YohdaIntegrationServiceController {
     constructor(
@@ -12,9 +15,10 @@ export class YohdaIntegrationServiceController {
     ) { }
 
     @Get('job/:jobNumber')
-    getByJobNumber(
+    async getDataByJobNumber(
+        @CurrentUser() currentUser: UserCognito,
         @Param('jobNumber') jobNumber: string
-    ) : Promise<ResponseDto<YohdaRecordDto[]>>{
-        return this.yohdaIntegrationService.findByJobNumber(jobNumber);
+    ): Promise<ResponseDto<YohdaRecordDto[]>> {
+        return await this.yohdaIntegrationService.findByJobNumber(jobNumber, currentUser);
     }
 }
