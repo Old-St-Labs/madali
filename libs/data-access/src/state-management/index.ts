@@ -17,7 +17,7 @@ export const useStore = create<IStore>()(
             ...createAuthedUserSlice(set, get, api)
         }),
         {
-            name: 'app-storage',
+            name: 'user-storage',
             storage: createJSONStorage(() => sessionStorage)
         },
     ),

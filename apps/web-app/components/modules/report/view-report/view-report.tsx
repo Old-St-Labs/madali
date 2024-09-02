@@ -18,6 +18,7 @@ export function ViewReport(props: ViewReportProps) {
         <div className={styles['container']}>
             <ExportModal />
             <CancelExportModal />
+
             <ReportSidenav />
 
             {currentView === REPORT_VIEW.REFERRAL_FORM && <ReferralForm isLoading={false} />}

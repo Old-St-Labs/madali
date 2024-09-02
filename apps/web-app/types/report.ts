@@ -18,3 +18,9 @@ export interface IReportPreviewData {
     question: string;
     answer: string;
 }
+
+export interface IPrefinedQuestion {
+    predefinedQuestionId: string;
+    questionType: string;
+    question: string;
+}

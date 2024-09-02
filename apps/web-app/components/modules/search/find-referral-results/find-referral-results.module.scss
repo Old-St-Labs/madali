@@ -17,3 +17,7 @@
         @apply relative flex flex-col gap-5 max-h-[19rem] overflow-y-auto scrollbar-hide bg-GR50 border border-BLGR100 border-t-0 rounded-bl-md rounded-br-md py-10 px-6;
     }
 }
+
+.spinner-container {
+    @apply flex justify-center items-center h-1/2;
+}

@@ -42,6 +42,7 @@ const answersTemp = [
     },
 ];
 
+// TODO: Move to a global state management
 export const ReportContextProvider = ({ children }) => {
     const [currentView, setCurrentView] = useState<ViewReportDisplay>('REFERRAL_FORM');
     const [reportQuestions, setReportQuestions] = useState<IReportQuestion[]>(questionsTemp);

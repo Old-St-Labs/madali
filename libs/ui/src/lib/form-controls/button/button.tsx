@@ -16,7 +16,7 @@ export interface ButtonProps {
     type?: ButtonType | undefined,
     onClick?: () => void,
     isRounded?: boolean,
-    size?: 'sm' | 'md' | 'lg',
+    size?: 'sm' | 'md' | 'lg' | 'xl',
 }
 
 export function Button({

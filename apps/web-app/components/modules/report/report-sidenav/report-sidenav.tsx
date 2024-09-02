@@ -1,9 +1,12 @@
+import { YohdaRecordDto } from '@dto';
 import { Button, Pen, Typography } from '@ui';
 import { REPORT_VIEW } from '@web-app/config/constants';
 import { EventEmitter } from '@web-app/config/eventEmitter';
 import { useReportContext } from '@web-app/context/reportContext';
+import { useSessionStore } from '@web-app/hooks/state-management';
 import cn from 'classnames';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import styles from './report-sidenav.module.scss';
 
 type ReportSideNavTabs = 'Referral Form' | 'Referral Notes';
@@ -12,8 +15,29 @@ export interface ReportSidenavProps {}
 
 export function ReportSidenav(props: ReportSidenavProps) {
     const { currentView } = useReportContext();
+    const router = useRouter();
+
+    const { employeeList } = useSessionStore((state) => state);
+
     const [selectedTab, setSelectedTab] =
         useState<ReportSideNavTabs>('Referral Form');
+
+    const [selectedEmployee, setSelectedEmployee] =
+        useState<Partial<YohdaRecordDto>>();
+
+    const findEmployee = () => {
+        const { id } = router.query;
+        const employeeId = (id as string)?.split('-')[0];
+        const foundEmployee = employeeList.find(
+            (employee) => employee.employeeId === employeeId
+        );
+
+        setSelectedEmployee(foundEmployee);
+    };
+
+    useEffect(() => {
+        findEmployee();
+    }, []);
 
     return (
         <div className={styles['container']}>
@@ -22,18 +46,18 @@ export function ReportSidenav(props: ReportSidenavProps) {
                 size="text-2xl"
                 fontWeight="font-semibold"
             >
-                Joe Bloggs
+                {selectedEmployee?.employeeName}
             </Typography>
 
             <div className="flex gap-2 items-center">
                 <Typography color="text-T2" size="text-base">
-                    Asst. Merchandiser
+                    {selectedEmployee?.employeeJobTitle}
                 </Typography>
 
                 <div className={styles['container__separator']} />
 
                 <Typography color="text-T2" size="text-base">
-                    Merch
+                    {selectedEmployee?.company}
                 </Typography>
             </div>
 
