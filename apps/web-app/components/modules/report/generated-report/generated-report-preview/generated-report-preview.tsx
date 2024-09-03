@@ -1,5 +1,5 @@
 import { Typography } from '@ui';
-import { useReportContext } from '@web-app/context/reportContext';
+import { useSessionStore } from '@web-app/hooks/state-management';
 import { useMemo } from 'react';
 import GeneratedReportQuestion from '../generated-report-question/generated-report-question';
 import styles from './generated-report-preview.module.scss';
@@ -8,17 +8,17 @@ import styles from './generated-report-preview.module.scss';
 export interface GeneratedReportPreviewProps {}
 
 export function GeneratedReportPreview(props: GeneratedReportPreviewProps) {
-    const { reportQuestions, reportAnswers } = useReportContext();
+    const { reportQuestions } = useSessionStore((state) => state);
 
     const reportPreviewData = useMemo(() => {
-        return reportQuestions.map((question) => {
-            const answer = reportAnswers.find(
-                (answer) => answer.questionId === question.id
-            );
+        return reportQuestions?.map((report) => {
+            // TODO: get answers from API
+            const answer =
+                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis provident veniam natus obcaecati, praesentium doloremque!';
 
-            return { ...question, answer: answer?.answer || '' };
+            return { question: report.question, answer: answer };
         });
-    }, [reportQuestions, reportAnswers]);
+    }, [reportQuestions]);
 
     return (
         <div className={styles['container']}>

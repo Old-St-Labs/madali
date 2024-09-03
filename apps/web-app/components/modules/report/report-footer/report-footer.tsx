@@ -1,12 +1,12 @@
 import { Button, ChevronLeft, ChevronRight } from '@ui';
+import { REPORT_VIEW } from '@web-app/config/constants';
 import { EventEmitter } from '@web-app/config/eventEmitter';
 import { useReportContext } from '@web-app/context/reportContext';
+import { ViewReportDisplay } from '@web-app/types/report';
 import { useRouter } from 'next/router';
 import { Line } from 'rc-progress';
 import { useEffect, useState } from 'react';
 import styles from './report-footer.module.scss';
-import { REPORT_VIEW } from '@web-app/config/constants';
-import { ViewReportDisplay } from '@web-app/types/report';
 
 /* eslint-disable-next-line */
 export interface ReportFooterProps {}
@@ -17,10 +17,10 @@ export function ReportFooter(props: ReportFooterProps) {
     const router = useRouter();
 
     const handleBackToView = () => {
-        EventEmitter.dispatch(EventEmitter.events.ExportReferralForm, true);
-
-        // TODO: Set to REFERRAL_FORM when user clicks "Leave"
-        updateCurrentView(REPORT_VIEW.REFERRAL_FORM as ViewReportDisplay);
+        EventEmitter.dispatch(
+            EventEmitter.events.CancelExportReferralForm,
+            true
+        );
     };
 
     useEffect(() => {
@@ -63,7 +63,9 @@ export function ReportFooter(props: ReportFooterProps) {
                         size="sm"
                         rightIcon={ChevronRight}
                         onClick={() =>
-                            updateCurrentView(REPORT_VIEW.GENERATED_REPORT as ViewReportDisplay)
+                            updateCurrentView(
+                                REPORT_VIEW.GENERATED_REPORT as ViewReportDisplay
+                            )
                         }
                     />
                 )}

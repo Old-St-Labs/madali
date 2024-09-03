@@ -1,6 +1,6 @@
 import { Add, Button, Drawer } from '@ui';
 import { EventEmitter } from '@web-app/config/eventEmitter';
-import { useReportContext } from '@web-app/context/reportContext';
+import { useSessionStore } from '@web-app/hooks/state-management';
 import { useEffect, useState } from 'react';
 import ReportQuestionItem from './report-question-item/report-question-item';
 
@@ -8,7 +8,9 @@ import ReportQuestionItem from './report-question-item/report-question-item';
 export interface ReportQuestionsModalProps {}
 
 export function ReportQuestionsModal(props: ReportQuestionsModalProps) {
-    const { reportQuestions, updateReportQuestions } = useReportContext();
+    const { reportQuestions, updateReportQuestions } = useSessionStore(
+        (state) => state
+    );
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [isDeletable, setIsDeletable] = useState(true);
@@ -30,8 +32,10 @@ export function ReportQuestionsModal(props: ReportQuestionsModalProps) {
         updateReportQuestions([
             ...reportQuestions,
             {
-                id: reportQuestions.length + 1,
+                id: `sample_id-${reportQuestions.length + 1}`, // TODO: get id from API
                 question: '',
+                questionType: 'text',
+                updatedQuestion: '',
             },
         ]);
     };
@@ -43,21 +47,21 @@ export function ReportQuestionsModal(props: ReportQuestionsModalProps) {
             return;
         }
 
-        updateReportQuestions([
-            ...reportQuestions.filter((question) => question.id !== questionId),
-        ]);
+        // updateReportQuestions([
+        //     ...reportQuestions.filter((question) => question.id !== questionId),
+        // ]);
     };
 
     const updateQuestion = (questionId: number, updatedQuestion: string) => {
-        updateReportQuestions([
-            ...reportQuestions.map((question) => {
-                if (question.id === questionId) {
-                    return { ...question, question: updatedQuestion };
-                }
+        // updateReportQuestions([
+        //     ...reportQuestions.map((question) => {
+        //         if (question.id === questionId) {
+        //             return { ...question, question: updatedQuestion };
+        //         }
 
-                return question;
-            }),
-        ]);
+        //         return question;
+        //     }),
+        // ]);
     };
 
     return (

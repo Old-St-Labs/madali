@@ -1,4 +1,4 @@
-import { IReportAnswer, IReportQuestion, ViewReportDisplay } from '@web-app/types/report';
+import { IReportAnswer, ViewReportDisplay } from '@web-app/types/report';
 import { createContext, useContext, useState } from 'react';
 
 const ReportContext = createContext(null);
@@ -6,26 +6,9 @@ const ReportContext = createContext(null);
 export type ReportContextType = {
     currentView: ViewReportDisplay;
     updateCurrentView: (view: ViewReportDisplay) => void;
-    reportQuestions: IReportQuestion[];
-    updateReportQuestions: (questions: IReportQuestion[]) => void;
     reportAnswers: IReportAnswer[];
     updateReportAnswers: (answers: IReportAnswer[]) => void;
 };
-
-const questionsTemp = [
-    {
-        id: 1,
-        question: 'Are there any underlying health conditions accounting for this employee’s absence(s)?',
-    },
-    {
-        id: 2,
-        question: 'In your opinion are there any work-related issues which may be a contributory factor?',
-    },
-    {
-        id: 3,
-        question: 'In your opinion is the employee fit for their full duties?',
-    },
-];
 
 const answersTemp = [
     {
@@ -44,16 +27,13 @@ const answersTemp = [
 
 // TODO: Move to a global state management
 export const ReportContextProvider = ({ children }) => {
-    const [currentView, setCurrentView] = useState<ViewReportDisplay>('REFERRAL_FORM');
-    const [reportQuestions, setReportQuestions] = useState<IReportQuestion[]>(questionsTemp);
-    const [reportAnswers, setReportAnswers] = useState<IReportAnswer[]>(answersTemp);
+    const [currentView, setCurrentView] =
+        useState<ViewReportDisplay>('REFERRAL_FORM');
+    const [reportAnswers, setReportAnswers] =
+        useState<IReportAnswer[]>(answersTemp);
 
     const updateCurrentView = (view: ViewReportDisplay) => {
         setCurrentView(view);
-    };
-
-    const updateReportQuestions = (questions: IReportQuestion[]) => {
-        setReportQuestions(questions);
     };
 
     const updateReportAnswers = (answers: IReportAnswer[]) => {
@@ -65,8 +45,6 @@ export const ReportContextProvider = ({ children }) => {
             value={{
                 currentView,
                 updateCurrentView,
-                reportQuestions,
-                updateReportQuestions,
                 reportAnswers,
                 updateReportAnswers,
             }}

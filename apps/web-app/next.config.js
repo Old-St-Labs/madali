@@ -23,7 +23,7 @@ const nextConfig = {
         USER_BASE_URL: process.env.USER_BASE_URL,
         API_AUTH_URL: process.env.API_AUTH_URL,
         API_EMPLOYEE_URL: process.env.API_EMPLOYEE_URL,
-        API_PREFINED_QUESTION_URL: process.env.API_PREFINED_QUESTION_URL,
+        API_PREDEFINED_QUESTION_URL: process.env.API_PREDEFINED_QUESTION_URL,
     },
     async redirects() {
         if (process.env.NX_WEB_APP_API_KEY) {

@@ -1,17 +1,18 @@
-import { IPrefinedQuestion } from '@web-app/types/report';
+import { IReportQuestion } from '@web-app/types/report';
 import { StateCreator } from 'zustand';
 
 export interface IReportQuestions {
-    reportQuestions: Partial<IPrefinedQuestion>[];
-    updateReportQuestions: (values: Partial<IPrefinedQuestion>[]) => void;
+    reportQuestions: Partial<IReportQuestion>[];
+    updateReportQuestions: (values: Partial<IReportQuestion>[]) => void;
     clearReportQuestions: () => void;
 }
 
 const initialState = [
     {
-        predefinedQuestionId: '',
+        id: '',
         questionType: '',
         question: '',
+        updatedQuestion: '',
     },
 ];
 
@@ -19,7 +20,7 @@ export const createReportQuestionsSlice: StateCreator<IReportQuestions> = (
     set
 ) => ({
     reportQuestions: initialState,
-    updateReportQuestions: (value: Partial<IPrefinedQuestion>[]) => {
+    updateReportQuestions: (value: Partial<IReportQuestion>[]) => {
         set((state: IReportQuestions) => ({
             ...state,
             reportQuestions: value,
