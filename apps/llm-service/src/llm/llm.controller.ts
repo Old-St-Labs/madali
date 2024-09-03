@@ -1,13 +1,14 @@
+import { CognitoAuthGuard } from '@auth-guard-lib';
 import { LLMDataDto, LLMInjectMessageDto } from '@dto';
 import { LLMServiceLibService } from '@llm-service-lib';
-import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Inject, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 
 @Controller('llm')
 @ApiTags('llm')
-// @ApiBearerAuth('JWT-auth')
-// @UseGuards(CognitoAuthGuard)
+@ApiBearerAuth('JWT-auth')
+@UseGuards(CognitoAuthGuard)
 export class LLMController {
 
     constructor(
