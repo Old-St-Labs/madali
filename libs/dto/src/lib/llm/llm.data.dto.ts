@@ -13,7 +13,7 @@ export class LLMDataDto {
     @ApiProperty({ type: LLMReferralFormDataDto })
     referralForm!: LLMReferralFormDataDto;
 
-    @ApiProperty({ type: LLMQuestionsDataDto })
+    @ApiProperty({ type: [LLMQuestionsDataDto] })
     questions!: Array<LLMQuestionsDataDto>;
 
     @ApiProperty()
