@@ -27,12 +27,15 @@ export function ReportQuestionsModal(props: ReportQuestionsModalProps) {
     }, []);
 
     const addNewQuestion = () => {
+        const randomStringId = Math.random().toString(36).substring(2, 15);
+
         setIsDeletable(true);
 
+        // TODO: Update if we need to send new question to API
         updateReportQuestions([
             ...reportQuestions,
             {
-                id: `sample_id-${reportQuestions.length + 1}`, // TODO: get id from API
+                id: `local-${randomStringId}-${reportQuestions.length + 1}`,
                 question: '',
                 questionType: 'text',
                 updatedQuestion: '',
@@ -40,28 +43,33 @@ export function ReportQuestionsModal(props: ReportQuestionsModalProps) {
         ]);
     };
 
-    const handleDelete = (questionId: number) => {
+    const handleDelete = (questionId: string) => {
         if (reportQuestions.length === 1) {
             setIsDeletable(false);
 
             return;
         }
 
-        // updateReportQuestions([
-        //     ...reportQuestions.filter((question) => question.id !== questionId),
-        // ]);
+        updateReportQuestions([
+            ...reportQuestions.filter(
+                (reportQuestion) => reportQuestion.id !== questionId
+            ),
+        ]);
     };
 
-    const updateQuestion = (questionId: number, updatedQuestion: string) => {
-        // updateReportQuestions([
-        //     ...reportQuestions.map((question) => {
-        //         if (question.id === questionId) {
-        //             return { ...question, question: updatedQuestion };
-        //         }
+    const updateQuestion = (questionId: string, updatedQuestion: string) => {
+        updateReportQuestions([
+            ...reportQuestions.map((reportQuestion) => {
+                if (reportQuestion.id === questionId) {
+                    return {
+                        ...reportQuestion,
+                        updatedQuestion: updatedQuestion,
+                    };
+                }
 
-        //         return question;
-        //     }),
-        // ]);
+                return reportQuestion;
+            }),
+        ]);
     };
 
     return (
@@ -76,7 +84,12 @@ export function ReportQuestionsModal(props: ReportQuestionsModalProps) {
                         <ReportQuestionItem
                             key={item.id}
                             questionNumber={index + 1}
-                            questionText={item.question}
+                            questionId={item.id}
+                            questionText={
+                                item.updatedQuestion === ''
+                                    ? item.question
+                                    : item.updatedQuestion
+                            }
                             isDeletable={isDeletable}
                             onDelete={handleDelete}
                             onUpdate={updateQuestion}

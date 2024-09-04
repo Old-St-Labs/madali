@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import {
     createEmployeeListSlice,
-    IEmployeeList,
+    IEmployeeListData,
 } from './createEmployeeListSlice';
 import {
     createReportQuestionsSlice,
@@ -10,7 +10,7 @@ import {
 } from './createReportQuestionsSlice';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IStore extends IEmployeeList, IReportQuestions {}
+interface IStore extends IEmployeeListData, IReportQuestions {}
 
 export const useSessionStore = create<IStore>()(
     persist(

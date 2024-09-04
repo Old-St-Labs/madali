@@ -1,35 +1,42 @@
-import { YohdaRecordDto } from '@dto';
+import { IEmployeeList } from '@web-app/types/employee';
 import { StateCreator } from 'zustand';
 
-export interface IEmployeeList {
-    employeeList: Partial<YohdaRecordDto>[];
-    updateEmployeeList: (values: Partial<YohdaRecordDto>[]) => void;
-    clearEmployeeList: () => void;
+export interface IEmployeeListData {
+    employeeData: IEmployeeList;
+    updateEmployeeData: (values: IEmployeeList) => void;
+    clearEmployeeData: () => void;
 }
 
-const initialState = [
-    {
-        employeeId: '',
-        company: '',
-        employeeName: '',
-        employeeJobTitle: '',
-        referralDate: '',
-        referralForm: {
+const initialState = {
+    jobId: '',
+    threadId: '',
+    currentEmployeeId: '',
+    employeeList: [
+        {
+            employeeId: '',
+            company: '',
+            employeeName: '',
+            employeeJobTitle: '',
             referralDate: '',
+            referralForm: {
+                referralDate: '',
+            },
+            referralNotes: {
+                consultationDate: '',
+            },
         },
-        referralNotes: {
-            consultationDate: '',
-        },
-    },
-];
+    ],
+};
 
-export const createEmployeeListSlice: StateCreator<IEmployeeList> = (set) => ({
-    employeeList: initialState,
-    updateEmployeeList: (value: Partial<YohdaRecordDto>[]) => {
-        set((state: IEmployeeList) => ({
+export const createEmployeeListSlice: StateCreator<IEmployeeListData> = (
+    set
+) => ({
+    employeeData: initialState,
+    updateEmployeeData: (value: IEmployeeList) => {
+        set((state: IEmployeeListData) => ({
             ...state,
-            employeeList: value,
+            employeeData: value,
         }));
     },
-    clearEmployeeList: () => set({ employeeList: initialState }),
+    clearEmployeeData: () => set({ employeeData: initialState }),
 });

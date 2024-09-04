@@ -16,7 +16,13 @@ export function GeneratedReportPreview(props: GeneratedReportPreviewProps) {
             const answer =
                 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis provident veniam natus obcaecati, praesentium doloremque!';
 
-            return { question: report.question, answer: answer };
+            return {
+                question:
+                    report.updatedQuestion === ''
+                        ? report.question
+                        : report.updatedQuestion,
+                answer: answer,
+            };
         });
     }, [reportQuestions]);
 

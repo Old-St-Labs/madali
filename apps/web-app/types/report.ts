@@ -31,3 +31,16 @@ export interface IPredefinedQuestions {
     statusCode: number;
     body: IPredefinedQuestion[];
 }
+
+export interface ILLMReport {
+    jobId: string;
+    generatedReport: string;
+    threadId: string;
+}
+
+export interface IGenerateReportData {
+    statusCode: number;
+    body: ILLMReport;
+    message?: string;
+    error?: string;
+}

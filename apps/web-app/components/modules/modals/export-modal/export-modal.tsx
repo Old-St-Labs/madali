@@ -18,12 +18,18 @@ export function ExportModal(props: ExportModalProps) {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     const reportPreviewData = useMemo(() => {
-        return reportQuestions.map((report) => {
+        return reportQuestions.map((reportQuestion) => {
             // TODO: get answers from API
             const answer =
                 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis provident veniam natus obcaecati, praesentium doloremque!';
 
-            return { question: report.question, answer: answer };
+            return {
+                question:
+                    reportQuestion.updatedQuestion === ''
+                        ? reportQuestion.question
+                        : reportQuestion.updatedQuestion,
+                answer: answer,
+            };
         });
     }, [reportQuestions]);
 

@@ -10,7 +10,8 @@ import styles from './find-referral-input.module.scss';
 export interface FindReferralInputProps {}
 
 export function FindReferralInput(props: FindReferralInputProps) {
-    const { updateEmployeeList } = useSessionStore((state) => state);
+    const { employeeData: sessionEmployeeData, updateEmployeeData } =
+        useSessionStore((state) => state);
 
     const [jobNumber, setJobNumber] = useState<string>(null);
     const [isSearch, setIsSearch] = useState<boolean>(false);
@@ -22,17 +23,32 @@ export function FindReferralInput(props: FindReferralInputProps) {
         refetchEmployeeData,
     } = useQueryEmployeeListByJobNumber(jobNumber, isSearch);
 
+    const handleSearchUpdate = () => {
+        setIsSearch(false);
+
+        updateEmployeeData({
+            jobId: jobNumber,
+            threadId: '',
+            currentEmployeeId: '',
+            employeeList: employeeData?.body,
+        });
+    };
+
     useEffect(() => {
-        if (employeeDataStatus === 'success') {
-            updateEmployeeList(employeeData.body);
-            setIsSearch(false);
-        }
+        if (employeeDataStatus === 'success') handleSearchUpdate();
     }, [employeeDataStatus]);
 
     useEffect(() => {
-        console.log('isSearch', isSearch);
-        if (isSearch) refetchEmployeeData();
+        if (isSearch) {
+            refetchEmployeeData();
+            handleSearchUpdate();
+        }
     }, [isSearch]);
+
+    useEffect(() => {
+        if (sessionEmployeeData.jobId !== '')
+            setJobNumber(sessionEmployeeData.jobId);
+    }, []);
 
     return (
         <>

@@ -1,5 +1,6 @@
 import { YohdaRecordDto } from '@dto';
 import { Button, Typography } from '@ui';
+import { useSessionStore } from '@web-app/hooks/state-management';
 import { useRouter } from 'next/router';
 import styles from './find-referral-result-item.module.scss';
 
@@ -14,13 +15,19 @@ export function FindReferralResultItem({
     data,
 }: FindReferralResultItemProps) {
     const router = useRouter();
+    const { employeeData, updateEmployeeData } = useSessionStore(
+        (state) => state
+    );
     const { employeeName, employeeId, employeeJobTitle, company } = data;
 
     const handleClick = () => {
-        router.push(`/report/${employeeId}-${id}`);
-    };
+        updateEmployeeData({
+            ...employeeData,
+            currentEmployeeId: employeeId,
+        });
 
-    console.log(employeeName, employeeJobTitle, company);
+        router.push(`/report/${employeeId}`);
+    };
 
     return (
         <div className={styles['container']}>

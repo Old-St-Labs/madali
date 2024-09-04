@@ -1,11 +1,10 @@
-import { YohdaRecordDto } from '@dto';
 import { Button, Pen, Typography } from '@ui';
 import { REPORT_VIEW } from '@web-app/config/constants';
 import { EventEmitter } from '@web-app/config/eventEmitter';
 import { useReportContext } from '@web-app/context/reportContext';
 import { useSessionStore } from '@web-app/hooks/state-management';
+import { IYohdaRecord } from '@web-app/types/employee';
 import cn from 'classnames';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styles from './report-sidenav.module.scss';
 
@@ -15,20 +14,18 @@ export interface ReportSidenavProps {}
 
 export function ReportSidenav(props: ReportSidenavProps) {
     const { currentView } = useReportContext();
-    const router = useRouter();
 
-    const { employeeList } = useSessionStore((state) => state);
+    const { employeeData } = useSessionStore((state) => state);
 
     const [selectedTab, setSelectedTab] =
         useState<ReportSideNavTabs>('Referral Form');
 
-    const [selectedEmployee, setSelectedEmployee] =
-        useState<Partial<YohdaRecordDto>>();
+    const [selectedEmployee, setSelectedEmployee] = useState<IYohdaRecord>();
 
     const findEmployee = () => {
-        const { id } = router.query;
-        const employeeId = (id as string)?.split('-')[0];
-        const foundEmployee = employeeList.find(
+        const employeeId = employeeData.currentEmployeeId;
+
+        const foundEmployee = employeeData.employeeList.find(
             (employee) => employee.employeeId === employeeId
         );
 
@@ -37,7 +34,7 @@ export function ReportSidenav(props: ReportSidenavProps) {
 
     useEffect(() => {
         findEmployee();
-    }, []);
+    }, [employeeData]);
 
     return (
         <div className={styles['container']}>
