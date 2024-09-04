@@ -33,7 +33,7 @@ export class YohdaIntegrationServiceLibService implements YohdaIntegrationServic
 
                 // Map employeeData to YohdaResponseDto
                 const referralRecord: YohdaResponseDto = {
-                    employee_id: employeeData.employee_id,
+                    employee_id: employee.employeeId,
                     company: employeeData.company,
                     employee_name: employeeData.employee_name,
                     employee_job_title: employeeData.employee_job_title,
