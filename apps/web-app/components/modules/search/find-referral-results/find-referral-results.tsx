@@ -1,11 +1,23 @@
-import { Typography } from '@ui';
+import { YohdaRecordDto } from '@dto';
+import { Spinner, Typography } from '@ui';
+import { useEffect, useState } from 'react';
 import FindReferralResultItem from '../find-referral-result-item/find-referral-result-item';
+import SearchState from '../search-state/search-state';
 import styles from './find-referral-results.module.scss';
 
-/* eslint-disable-next-line */
-export interface FindReferralResultsProps {}
+export interface FindReferralResultsProps {
+    isLoading: boolean;
+    data: YohdaRecordDto[];
+}
 
-export function FindReferralResults(props: FindReferralResultsProps) {
+export function FindReferralResults({
+    isLoading,
+    data,
+}: FindReferralResultsProps) {
+    const [resultsData, setResultsData] = useState<YohdaRecordDto[] | null>(
+        null
+    );
+
     const headerData = [
         {
             header: 'Francis Paulson',
@@ -21,114 +33,128 @@ export function FindReferralResults(props: FindReferralResultsProps) {
         },
     ];
 
-    const resultItems = [
-        {
-            name: 'Joe Bloggs',
-            position: 'Asst. Merchandiser',
-            department: 'Merch',
-        },
-        {
-            name: 'Paul Finch',
-            position: 'Asst. Merchandiser',
-            department: 'Merch',
-        },
-    ];
+    useEffect(() => {
+        setResultsData(data);
+    }, [data]);
+
+    if (isLoading) {
+        return (
+            <div className={styles['spinner-container']}>
+                <Spinner isModalSpinner={true} />
+            </div>
+        );
+    }
 
     return (
         <>
-            <div className={styles['container']}>
-                <div className={styles['container__header']}>
-                    <div className={styles['container__header-left']}>
-                        <div>
-                            <Typography
-                                color="text-B800"
-                                size="text-xl"
-                                fontWeight="font-semibold"
-                            >
-                                BooHoo
-                            </Typography>
+            {!resultsData ? (
+                <SearchState searchState="default" />
+            ) : (
+                <>
+                    <div className={styles['container']}>
+                        <div className={styles['container__header']}>
+                            <div className={styles['container__header-left']}>
+                                <div>
+                                    <Typography
+                                        color="text-B800"
+                                        size="text-xl"
+                                        fontWeight="font-semibold"
+                                    >
+                                        BooHoo
+                                    </Typography>
 
-                            <Typography color="text-B600" size="text-base">
-                                London NW24
-                            </Typography>
-                        </div>
+                                    <Typography
+                                        color="text-B600"
+                                        size="text-base"
+                                    >
+                                        London NW24
+                                    </Typography>
+                                </div>
 
-                        <div className="flex justify-between">
-                            <div>
-                                <Typography
-                                    color="text-B800"
-                                    size="text-lg"
-                                    fontWeight="font-semibold"
-                                >
-                                    12 Jun 2024 8:34 PM
-                                </Typography>
+                                <div className="flex justify-between">
+                                    <div>
+                                        <Typography
+                                            color="text-B800"
+                                            size="text-lg"
+                                            fontWeight="font-semibold"
+                                        >
+                                            12 Jun 2024 8:34 PM
+                                        </Typography>
 
-                                <Typography color="text-B600" size="text-sm">
-                                    Last update
-                                </Typography>
+                                        <Typography
+                                            color="text-B600"
+                                            size="text-sm"
+                                        >
+                                            Last update
+                                        </Typography>
+                                    </div>
+
+                                    <Typography
+                                        color="text-B800"
+                                        size="text-lg"
+                                        fontWeight="font-semibold"
+                                    >
+                                        John Smith
+                                    </Typography>
+                                </div>
                             </div>
 
-                            <Typography
-                                color="text-B800"
-                                size="text-lg"
-                                fontWeight="font-semibold"
-                            >
-                                John Smith
-                            </Typography>
+                            <div className={styles['container__header-right']}>
+                                {headerData.map((item, i) => (
+                                    <div
+                                        key={i}
+                                        className="flex flex-col justify-between w-1/2"
+                                    >
+                                        <div>
+                                            <Typography
+                                                color="text-B800"
+                                                size="text-base"
+                                                fontWeight="font-semibold"
+                                            >
+                                                {item.header}
+                                            </Typography>
+
+                                            <Typography
+                                                color="text-B600"
+                                                size="text-sm"
+                                            >
+                                                {item.subheader}
+                                            </Typography>
+                                        </div>
+
+                                        <div>
+                                            <Typography
+                                                color="text-B800"
+                                                size="text-base"
+                                                fontWeight="font-semibold"
+                                            >
+                                                {item.bottomHeader}
+                                            </Typography>
+
+                                            <Typography
+                                                color="text-B600"
+                                                size="text-sm"
+                                            >
+                                                {item.bottomSubheader}
+                                            </Typography>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
-                    <div className={styles['container__header-right']}>
-                        {headerData.map((item, i) => (
-                            <div
+                    <div className={styles['container__list']}>
+                        {resultsData.map((item, i) => (
+                            <FindReferralResultItem
                                 key={i}
-                                className="flex flex-col justify-between w-1/2"
-                            >
-                                <div>
-                                    <Typography
-                                        color="text-B800"
-                                        size="text-base"
-                                        fontWeight="font-semibold"
-                                    >
-                                        {item.header}
-                                    </Typography>
-
-                                    <Typography
-                                        color="text-B600"
-                                        size="text-sm"
-                                    >
-                                        {item.subheader}
-                                    </Typography>
-                                </div>
-
-                                <div>
-                                    <Typography
-                                        color="text-B800"
-                                        size="text-base"
-                                        fontWeight="font-semibold"
-                                    >
-                                        {item.bottomHeader}
-                                    </Typography>
-
-                                    <Typography
-                                        color="text-B600"
-                                        size="text-sm"
-                                    >
-                                        {item.bottomSubheader}
-                                    </Typography>
-                                </div>
-                            </div>
+                                id={i}
+                                data={item}
+                            />
                         ))}
                     </div>
-                </div>
-            </div>
-
-            {/* TODO: Make this scrollable */}
-            <div className={styles['container__list']}>
-                {resultItems.map((item, i) => (
-                    <FindReferralResultItem key={i} data={item} />
-                ))}
-            </div>
+                </>
+            )}
         </>
     );
 }

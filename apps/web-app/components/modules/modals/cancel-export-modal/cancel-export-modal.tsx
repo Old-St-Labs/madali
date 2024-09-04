@@ -1,6 +1,8 @@
 import { Button, Modal, Typography, XOutline } from '@ui';
+import { REPORT_VIEW } from '@web-app/config/constants';
 import { EventEmitter } from '@web-app/config/eventEmitter';
-import { useRouter } from 'next/router';
+import { useReportContext } from '@web-app/context/reportContext';
+import { ViewReportDisplay } from '@web-app/types/report';
 import { useEffect, useState } from 'react';
 import styles from './cancel-export-modal.module.scss';
 
@@ -8,7 +10,7 @@ import styles from './cancel-export-modal.module.scss';
 export interface CancelExportModalProps {}
 
 export function CancelExportModal(props: CancelExportModalProps) {
-    const router = useRouter();
+    const { updateCurrentView } = useReportContext();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
@@ -25,7 +27,8 @@ export function CancelExportModal(props: CancelExportModalProps) {
     }, []);
 
     const handleLeavePage = () => {
-        router.push('/search');
+        setModalOpen(false);
+        updateCurrentView(REPORT_VIEW.REFERRAL_FORM as ViewReportDisplay);
     };
 
     const handleStayOnPage = () => {

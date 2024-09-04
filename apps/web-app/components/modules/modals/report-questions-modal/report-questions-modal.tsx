@@ -1,6 +1,6 @@
 import { Add, Button, Drawer } from '@ui';
 import { EventEmitter } from '@web-app/config/eventEmitter';
-import { useReportContext } from '@web-app/context/reportContext';
+import { useSessionStore } from '@web-app/hooks/state-management';
 import { useEffect, useState } from 'react';
 import ReportQuestionItem from './report-question-item/report-question-item';
 
@@ -8,7 +8,9 @@ import ReportQuestionItem from './report-question-item/report-question-item';
 export interface ReportQuestionsModalProps {}
 
 export function ReportQuestionsModal(props: ReportQuestionsModalProps) {
-    const { reportQuestions, updateReportQuestions } = useReportContext();
+    const { reportQuestions, updateReportQuestions } = useSessionStore(
+        (state) => state
+    );
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [isDeletable, setIsDeletable] = useState(true);
@@ -25,18 +27,23 @@ export function ReportQuestionsModal(props: ReportQuestionsModalProps) {
     }, []);
 
     const addNewQuestion = () => {
+        const randomStringId = Math.random().toString(36).substring(2, 15);
+
         setIsDeletable(true);
 
+        // TODO: Update if we need to send new question to API
         updateReportQuestions([
             ...reportQuestions,
             {
-                id: reportQuestions.length + 1,
+                id: `local-${randomStringId}-${reportQuestions.length + 1}`,
                 question: '',
+                questionType: 'text',
+                updatedQuestion: '',
             },
         ]);
     };
 
-    const handleDelete = (questionId: number) => {
+    const handleDelete = (questionId: string) => {
         if (reportQuestions.length === 1) {
             setIsDeletable(false);
 
@@ -44,18 +51,23 @@ export function ReportQuestionsModal(props: ReportQuestionsModalProps) {
         }
 
         updateReportQuestions([
-            ...reportQuestions.filter((question) => question.id !== questionId),
+            ...reportQuestions.filter(
+                (reportQuestion) => reportQuestion.id !== questionId
+            ),
         ]);
     };
 
-    const updateQuestion = (questionId: number, updatedQuestion: string) => {
+    const updateQuestion = (questionId: string, updatedQuestion: string) => {
         updateReportQuestions([
-            ...reportQuestions.map((question) => {
-                if (question.id === questionId) {
-                    return { ...question, question: updatedQuestion };
+            ...reportQuestions.map((reportQuestion) => {
+                if (reportQuestion.id === questionId) {
+                    return {
+                        ...reportQuestion,
+                        updatedQuestion: updatedQuestion,
+                    };
                 }
 
-                return question;
+                return reportQuestion;
             }),
         ]);
     };
@@ -72,7 +84,12 @@ export function ReportQuestionsModal(props: ReportQuestionsModalProps) {
                         <ReportQuestionItem
                             key={item.id}
                             questionNumber={index + 1}
-                            questionText={item.question}
+                            questionId={item.id}
+                            questionText={
+                                item.updatedQuestion === ''
+                                    ? item.question
+                                    : item.updatedQuestion
+                            }
                             isDeletable={isDeletable}
                             onDelete={handleDelete}
                             onUpdate={updateQuestion}

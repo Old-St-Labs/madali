@@ -8,8 +8,9 @@ const useAuth = () => {
     const router = useRouter();
     const updateAuthedUser = useStore((state) => state.updateAuthedUser);
 
-    const authenticationUser = async (data: { email: string, firstName?: string, lastName?: string }, token: string, shouldUpdate?: boolean) => {
+    const authenticationUser = async (data: { email: string, firstName?: string, lastName?: string }, token: string, idToken?: string, shouldUpdate?: boolean) => {
         Cookies.set(STORAGE_KEY.ACCESS_TOKEN, token);
+        Cookies.set(STORAGE_KEY.ID_TOKEN, idToken);
         // const { email, firstName, lastName } = data;
         // let userDetails: ProfileData = {};
 

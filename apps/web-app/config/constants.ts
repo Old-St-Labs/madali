@@ -1,5 +1,7 @@
 export const STORAGE_KEY = {
-    ACCESS_TOKEN: 'latus_group_accesstoken',
+    ACCESS_TOKEN: 'latus_group_access_token',
+    ID_TOKEN: 'latus_group_id_token',
+    REFRESH_TOKEN: 'latus_group_refresh_token',
     COGNITO_SESSION: 'cognito_session',
 };
 

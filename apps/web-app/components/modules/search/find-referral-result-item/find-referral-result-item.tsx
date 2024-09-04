@@ -1,20 +1,32 @@
+import { YohdaRecordDto } from '@dto';
 import { Button, Typography } from '@ui';
+import { useSessionStore } from '@web-app/hooks/state-management';
 import { useRouter } from 'next/router';
 import styles from './find-referral-result-item.module.scss';
 
 /* eslint-disable-next-line */
 export interface FindReferralResultItemProps {
-    data: { name: string; position: string; department: string };
+    id: number; //temporary id
+    data: YohdaRecordDto;
 }
 
 export function FindReferralResultItem({
-    data: { name, position, department },
+    id,
+    data,
 }: FindReferralResultItemProps) {
     const router = useRouter();
+    const { employeeData, updateEmployeeData } = useSessionStore(
+        (state) => state
+    );
+    const { employeeName, employeeId, employeeJobTitle, company } = data;
 
     const handleClick = () => {
-        // router.push(`/report/${id}`);
-        router.push('/report/001');
+        updateEmployeeData({
+            ...employeeData,
+            currentEmployeeId: employeeId,
+        });
+
+        router.push(`/report/${employeeId}`);
     };
 
     return (
@@ -25,18 +37,18 @@ export function FindReferralResultItem({
                     size="text-2xl"
                     fontWeight="font-semibold"
                 >
-                    {name}
+                    {employeeName}
                 </Typography>
 
                 <div className="flex gap-2 items-center">
                     <Typography color="text-T2" size="text-base">
-                        {position}
+                        {employeeJobTitle}
                     </Typography>
 
                     <div className={styles['container__details-separator']} />
 
                     <Typography color="text-T2" size="text-base">
-                        {department}
+                        {company}
                     </Typography>
                 </div>
             </div>

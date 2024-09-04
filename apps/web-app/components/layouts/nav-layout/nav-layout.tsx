@@ -1,6 +1,7 @@
 import { useStore } from '@data-access/state-management';
 import { Button, User } from '@ui';
 import { STORAGE_KEY } from '@web-app/config/constants';
+import { useSessionStore } from '@web-app/hooks/state-management';
 import HEADER_LOGO from '@web-app/public/assets/navlayout_logo.png';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
@@ -15,10 +16,15 @@ export interface NavLayoutProps {
 export function NavLayout({ children }: NavLayoutProps) {
     const router = useRouter();
     const clearAuthedUser = useStore((state) => state.clearAuthedUser);
+    const { clearEmployeeData, clearReportQuestions } = useSessionStore(
+        (state) => state
+    );
 
     const handleLogout = () => {
         Cookies.remove(STORAGE_KEY.ACCESS_TOKEN);
         clearAuthedUser();
+        clearEmployeeData();
+        clearReportQuestions();
 
         router.replace('/auth/login');
     };

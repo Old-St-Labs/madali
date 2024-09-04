@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { ResponseError } from './../types/responseError';
 
 export const useLoginUserMutation = (
-    onSuccessFunc: (data: CognitoDto, accessToken: string) => void,
+    onSuccessFunc: (data: CognitoDto, accessToken: string, idToken: string) => void,
     onNewPasswordRequiredFunc: (data: AdminInitiateAuthCommandOutput) => void
 ) => {
     const setFlashNotification = useStore((state) => state.setFlashNotification);
@@ -36,7 +36,7 @@ export const useLoginUserMutation = (
                     email: variables.email
                 });
             } else {
-                onSuccessFunc(variables, data.AuthenticationResult.AccessToken);
+                onSuccessFunc(variables, data.AuthenticationResult.AccessToken, data.AuthenticationResult.IdToken);
             }
         }
     });

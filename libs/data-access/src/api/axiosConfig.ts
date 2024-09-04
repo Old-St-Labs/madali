@@ -1,11 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
+import Cookies from 'js-cookie';
 import { STORAGE_KEY } from '../constants';
 import { ResponseError } from '../types/responseError';
 
 export class AxiosConfig {
     protected axiosInstance: AxiosInstance;
-
-    constructor(baseURL: string, withAuthorization: boolean, shouldRedirectUnauthorized: boolean) {
+    constructor(baseURL: string, withAuthorization: boolean, shouldRedirectUnauthorized: boolean, shouldUseIdToken: boolean = false) {
         this.axiosInstance = axios.create({
             baseURL,
             timeout: 150000,
@@ -14,13 +14,13 @@ export class AxiosConfig {
                 'Content-Type': 'application/json'
             }
         });
-        this.addInterceptor(this.axiosInstance, withAuthorization, shouldRedirectUnauthorized);
+        this.addInterceptor(this.axiosInstance, withAuthorization, shouldRedirectUnauthorized, shouldUseIdToken);
     }
 
-    protected addInterceptor(instance: AxiosInstance, withAuthorization: boolean, shouldRedirectUnauthorized: boolean): void {
+    protected addInterceptor(instance: AxiosInstance, withAuthorization: boolean, shouldRedirectUnauthorized: boolean, shouldUseIdToken: boolean = false): void {
         if (withAuthorization) {
             instance.interceptors.request.use(async (config) => {
-                const accessToken = await this.getAccessTokenAsync();
+                const accessToken = await this.getAccessTokenAsync(shouldUseIdToken);
 
                 config.headers.Authorization = `Bearer ${accessToken}`;
 
@@ -49,7 +49,11 @@ export class AxiosConfig {
         });
     }
 
-    protected async getAccessTokenAsync(): Promise<string> {
-        return sessionStorage.getItem(STORAGE_KEY.ACCESS_TOKEN);
+    protected async getAccessTokenAsync(shouldUseIdToken: boolean): Promise<string> {
+        if (shouldUseIdToken) {
+            return Cookies.get(STORAGE_KEY.ID_TOKEN);
+        } else {
+            return Cookies.get(STORAGE_KEY.ACCESS_TOKEN);
+        }
     }
 }

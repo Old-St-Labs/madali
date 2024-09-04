@@ -1,7 +1,7 @@
 import { Document, PDFDownloadLink, pdf } from '@react-pdf/renderer';
 import { Button, Modal, Spinner, Typography } from '@ui';
 import { EventEmitter } from '@web-app/config/eventEmitter';
-import { useReportContext } from '@web-app/context/reportContext';
+import { useSessionStore } from '@web-app/hooks/state-management';
 import { saveAs } from 'file-saver';
 import { useEffect, useMemo, useState } from 'react';
 import { GeneratedReportTemplatePage1 } from '../../report/generated-report/export-template-pages/generated-report-template_page-1';
@@ -12,19 +12,26 @@ import styles from './export-modal.module.scss';
 export interface ExportModalProps {}
 
 export function ExportModal(props: ExportModalProps) {
-    const { reportQuestions, reportAnswers } = useReportContext();
+    // const { reportQuestions, reportAnswers } = useReportContext();
+    const { reportQuestions } = useSessionStore((state) => state);
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     const reportPreviewData = useMemo(() => {
-        return reportQuestions.map((question) => {
-            const answer = reportAnswers.find(
-                (answer) => answer.questionId === question.id
-            );
+        return reportQuestions.map((reportQuestion) => {
+            // TODO: get answers from API
+            const answer =
+                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis provident veniam natus obcaecati, praesentium doloremque!';
 
-            return { ...question, answer: answer?.answer || '' };
+            return {
+                question:
+                    reportQuestion.updatedQuestion === ''
+                        ? reportQuestion.question
+                        : reportQuestion.updatedQuestion,
+                answer: answer,
+            };
         });
-    }, [reportQuestions, reportAnswers]);
+    }, [reportQuestions]);
 
     useEffect(() => {
         EventEmitter.subscribe(
@@ -38,10 +45,6 @@ export function ExportModal(props: ExportModalProps) {
     }, []);
 
     const handleCancelExport = () => {
-        EventEmitter.dispatch(
-            EventEmitter.events.CancelExportReferralForm,
-            true
-        );
         setModalOpen(false);
     };
 
