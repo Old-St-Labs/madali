@@ -9,7 +9,7 @@ export class LLMServiceLibService implements LLMServiceLib {
 
     private readonly logger = new Logger(LLMServiceLibService.name);
     private readonly openai = new OpenAI({ apiKey: this.configService.get<string>('OPENAI_API_KEY') });
-    private readonly assistantId = this.configService.get<string>('OPENAI_CHAMBER_ASSISTANT_ID');
+    private readonly assistantId = this.configService.get<string>('OPENAI_ASSISTANT_ID');
 
     constructor(private readonly configService: ConfigService) {
 

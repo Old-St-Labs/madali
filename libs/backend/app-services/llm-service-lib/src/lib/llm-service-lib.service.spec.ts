@@ -16,7 +16,7 @@ describe('LLMServiceLibService', () => {
             switch (key) {
                 case 'OPENAI_API_KEY':
                     return 'apiKey';
-                case 'OPENAI_CHAMBER_ASSISTANT_ID':
+                case 'OPENAI_ASSISTANT_ID':
                     return 'assistantId';
                 default:
                     return null;
