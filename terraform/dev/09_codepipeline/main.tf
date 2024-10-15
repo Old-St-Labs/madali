@@ -133,16 +133,15 @@ module "backend-code-pipeline" {
 
 }
 
-module "webapp-code-pipeline" {
-  source                 = "../../modules/aws_code_pipeline"
-  repository_name        = var.repository-name
-  pipeline_name          = "${var.project}-${var.environment}-webapp-pipeline"
-  codebuild_project_name = module.code-build-webapp.codebuild_project_name
-  iam_role_arn           = var.codebuild_role_arn
-  branch_name           = "development"
-  github_owner          = "Old-St-Labs"
-
-}
+# module "webapp-code-pipeline" {
+#  source                 = "../../modules/aws_code_pipeline"
+#  repository_name        = var.repository-name
+#  pipeline_name          = "${var.project}-${var.environment}-webapp-pipeline"
+#  codebuild_project_name = module.code-build-webapp.codebuild_project_name
+#  iam_role_arn           = var.codebuild_role_arn
+#  branch_name           = "development"
+#  github_owner          = "Old-St-Labs"
+# }
 
 
 #CODE PIPELINE
