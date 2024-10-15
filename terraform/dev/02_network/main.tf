@@ -129,16 +129,15 @@ output "lambda_security_group_id" {
 
 ## LOAD BALANCER- HTTP ONLY
 # This is intended for Load Balancers where Certificates are not available
-module "webapp_load_balancer" {
-  source = "../../modules/aws_load_balancer_http"
-
-  alb_name          = "${var.project}-${var.environment}-webapp-alb"
-  subnets           = module.vpc.public_subnet_ids
-  security_groups   = [module.webapp_load_balancer_security_group.security_group_id]
-  target_group_name = "${var.environment}-target-group"
-  vpc_id            = module.vpc.vpc_id
-  listener_port     = 80
-}
+# module "webapp_load_balancer" {
+#  source = "../../modules/aws_load_balancer_http"
+#  alb_name          = "${var.project}-${var.environment}-webapp-alb"
+#  subnets           = module.vpc.public_subnet_ids
+#  security_groups   = [module.webapp_load_balancer_security_group.security_group_id]
+#  target_group_name = "${var.environment}-target-group"
+#  vpc_id            = module.vpc.vpc_id
+#  listener_port     = 80
+# }
 
 
 ## LOAD BALANCER- HTTP ONLY
